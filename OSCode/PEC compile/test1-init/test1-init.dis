@@ -1,19 +1,19 @@
 
-test1-init.exe:     formato del fichero elf32-sisa
+test1-init.exe:     file format elf32-sisa
 test1-init.exe
-arquitectura: sisa:3, opciones 0x00000112:
+architecture: sisa:3, flags 0x00000112:
 EXEC_P, HAS_SYMS, D_PAGED
-dirección de inicio 0x0000c000
+start address 0x0000c000
 
-Encabezado del Programa:
+Program Header:
     LOAD off    0x00000000 vaddr 0x0000bfac paddr 0x0000bfac align 2**0
          filesz 0x00000068 memsz 0x00000068 flags r-x
 
-Secciones:
-Ind Nombre        Tamaño    VMA       LMA       Desp fich Alin  Opciones
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn  Flags
   0 .text         00000014  0000c000  0000c000  00000054  2**0  CONTENTS, ALLOC, LOAD, READONLY, CODE
   1 .stab         00000078  00000000  00000000  00000068  2**2  CONTENTS, READONLY, DEBUGGING
-  2 .stabstr      00000036  00000000  00000000  000000e0  2**0  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      0000004c  00000000  00000000  000000e0  2**0  CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 0000c000 l    d  .text	00000000 .text
 00000000 l    d  .stab	00000000 .stab
@@ -34,10 +34,10 @@ SYMBOL TABLE:
 
 
 
-test1-init.exe:     formato del fichero elf32-sisa
+test1-init.exe:     file format elf32-sisa
 
 
-test1-init.exe:     formato del fichero elf32-sisa
+test1-init.exe:     file format elf32-sisa
 
 Disassembly of section .text:
 
