@@ -1,0 +1,298 @@
+
+context_switch.exe:     formato del fichero elf32-sisa
+context_switch.exe
+arquitectura: sisa:3, opciones 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+dirección de inicio 0x0000d000
+
+Encabezado del Programa:
+    LOAD off    0x00000000 vaddr 0x0000cf8c paddr 0x0000cf8c align 2**0
+         filesz 0x00000202 memsz 0x00000202 flags r-x
+    LOAD off    0x00000202 vaddr 0x0000d500 paddr 0x0000d18e align 2**0
+         filesz 0x00000026 memsz 0x00000026 flags rw-
+
+Secciones:
+Ind Nombre        Tamaño    VMA       LMA       Desp fich Alin  Opciones
+  0 .text         0000018e  0000d000  0000d000  00000074  2**0  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000026  0000d500  0000d18e  00000202  2**1  CONTENTS, ALLOC, LOAD, DATA
+  2 .stab         000003fc  00000000  00000000  00000228  2**2  CONTENTS, READONLY, DEBUGGING
+  3 .stabstr      0000003e  00000000  00000000  00000624  2**0  CONTENTS, READONLY, DEBUGGING
+SYMBOL TABLE:
+0000d000 l    d  .text	00000000 .text
+0000d500 l    d  .data	00000000 .data
+00000000 l    d  .stab	00000000 .stab
+00000000 l    d  .stabstr	00000000 .stabstr
+00000000 l    d  *ABS*	00000000 .shstrtab
+00000000 l    d  *ABS*	00000000 .symtab
+00000000 l    d  *ABS*	00000000 .strtab
+0000d500 l       .data	00000000 user1_r0
+0000d502 l       .data	00000000 user1_r1
+0000d504 l       .data	00000000 user1_r2
+0000d506 l       .data	00000000 user1_r3
+0000d508 l       .data	00000000 user1_r4
+0000d50a l       .data	00000000 user1_r5
+0000d50c l       .data	00000000 user1_r6
+0000d50e l       .data	00000000 user1_r7
+0000d510 l       .data	00000000 user1_pc
+0000d512 l       .data	00000000 user2_r0
+0000d514 l       .data	00000000 user2_r1
+0000d516 l       .data	00000000 user2_r2
+0000d518 l       .data	00000000 user2_r3
+0000d51a l       .data	00000000 user2_r4
+0000d51c l       .data	00000000 user2_r5
+0000d51e l       .data	00000000 user2_r6
+0000d520 l       .data	00000000 user2_r7
+0000d522 l       .data	00000000 user2_pc
+0000d524 l       .data	00000000 user_turn
+0000d000 l       .text	00000000 RSG_guardar
+0000d044 l       .text	00000000 guardar_user2
+0000d00a l       .text	00000000 guardar_user1
+0000d07e l       .text	00000000 RSG_tractar
+0000d100 l       .text	00000000 contextSwitch
+0000d084 l       .text	00000000 RSG_restaurar
+0000d0c6 l       .text	00000000 rest_user2
+0000d08c l       .text	00000000 rest_user1
+0000d14c l       .text	00000000 curr_user2
+0000d10a l       .text	00000000 curr_user1
+0000d000 g       .text	00000000 __entry_point
+0000d18e g       .text	00000000 _etext
+0000d1b4 g       *ABS*	00000000 __data_load_end
+0000d18e g       *ABS*	00000000 __data_load_start
+0000d18e g       .text	00000000 __dtors_end
+0000d18e g       .text	00000000 __ctors_start
+0000d18e g       .text	00000000 __dtors_start
+0000d18e g       .text	00000000 __ctors_end
+0000d526 g       .data	00000000 _edata
+0000d526 g       *ABS*	00000000 _end
+
+
+
+context_switch.exe:     formato del fichero elf32-sisa
+
+Contents of section .data:
+ d500 00000000 00000000 00000000 00000000  ................
+ d510 00000000 00000000 00000000 00000000  ................
+ d520 00000040 0000                        ...@..          
+
+context_switch.exe:     formato del fichero elf32-sisa
+
+Disassembly of section .text:
+
+0000d000 <__entry_point>:
+    d000:	f9f0 	wrs	s4, r7
+    d002:	5e24 	movi	r7, 36
+    d004:	5fd5 	movhi	r7, -43
+    d006:	3fc0 	ld	r7, 0(r7)
+    d008:	6f1d 	bnz	r7, 60
+
+0000d00a <guardar_user1>:
+    d00a:	5e00 	movi	r7, 0
+    d00c:	5fd5 	movhi	r7, -43
+    d00e:	41c0 	st	0(r7), r0
+    d010:	5e02 	movi	r7, 2
+    d012:	5fd5 	movhi	r7, -43
+    d014:	43c0 	st	0(r7), r1
+    d016:	5e04 	movi	r7, 4
+    d018:	5fd5 	movhi	r7, -43
+    d01a:	45c0 	st	0(r7), r2
+    d01c:	5e06 	movi	r7, 6
+    d01e:	5fd5 	movhi	r7, -43
+    d020:	47c0 	st	0(r7), r3
+    d022:	5e08 	movi	r7, 8
+    d024:	5fd5 	movhi	r7, -43
+    d026:	49c0 	st	0(r7), r4
+    d028:	5e0a 	movi	r7, 10
+    d02a:	5fd5 	movhi	r7, -43
+    d02c:	4bc0 	st	0(r7), r5
+    d02e:	5e0c 	movi	r7, 12
+    d030:	5fd5 	movhi	r7, -43
+    d032:	4dc0 	st	0(r7), r6
+    d034:	ff2c 	rds	r7, s4
+    d036:	5c0e 	movi	r6, 14
+    d038:	5dd5 	movhi	r6, -43
+    d03a:	4f80 	st	0(r6), r7
+    d03c:	fe6c 	rds	r7, s1
+    d03e:	5c10 	movi	r6, 16
+    d040:	5dd5 	movhi	r6, -43
+    d042:	4f80 	st	0(r6), r7
+
+0000d044 <guardar_user2>:
+    d044:	5e12 	movi	r7, 18
+    d046:	5fd5 	movhi	r7, -43
+    d048:	41c0 	st	0(r7), r0
+    d04a:	5e14 	movi	r7, 20
+    d04c:	5fd5 	movhi	r7, -43
+    d04e:	43c0 	st	0(r7), r1
+    d050:	5e16 	movi	r7, 22
+    d052:	5fd5 	movhi	r7, -43
+    d054:	45c0 	st	0(r7), r2
+    d056:	5e18 	movi	r7, 24
+    d058:	5fd5 	movhi	r7, -43
+    d05a:	47c0 	st	0(r7), r3
+    d05c:	5e1a 	movi	r7, 26
+    d05e:	5fd5 	movhi	r7, -43
+    d060:	49c0 	st	0(r7), r4
+    d062:	5e1c 	movi	r7, 28
+    d064:	5fd5 	movhi	r7, -43
+    d066:	4bc0 	st	0(r7), r5
+    d068:	5e1e 	movi	r7, 30
+    d06a:	5fd5 	movhi	r7, -43
+    d06c:	4dc0 	st	0(r7), r6
+    d06e:	ff2c 	rds	r7, s4
+    d070:	5c20 	movi	r6, 32
+    d072:	5dd5 	movhi	r6, -43
+    d074:	4f80 	st	0(r6), r7
+    d076:	fe6c 	rds	r7, s1
+    d078:	5c22 	movi	r6, 34
+    d07a:	5dd5 	movhi	r6, -43
+    d07c:	4f80 	st	0(r6), r7
+
+0000d07e <RSG_tractar>:
+    d07e:	5600 	movi	r3, 0
+    d080:	57d1 	movhi	r3, -47
+    d082:	a0c3 	jmp	r3
+
+0000d084 <RSG_restaurar>:
+    d084:	5e24 	movi	r7, 36
+    d086:	5fd5 	movhi	r7, -43
+    d088:	3fc0 	ld	r7, 0(r7)
+    d08a:	6f1d 	bnz	r7, 60
+
+0000d08c <rest_user1>:
+    d08c:	5e10 	movi	r7, 16
+    d08e:	5fd5 	movhi	r7, -43
+    d090:	3fc0 	ld	r7, 0(r7)
+    d092:	f3f0 	wrs	s1, r7
+    d094:	5e0e 	movi	r7, 14
+    d096:	5fd5 	movhi	r7, -43
+    d098:	3fc0 	ld	r7, 0(r7)
+    d09a:	5c0c 	movi	r6, 12
+    d09c:	5dd5 	movhi	r6, -43
+    d09e:	3d80 	ld	r6, 0(r6)
+    d0a0:	5a0a 	movi	r5, 10
+    d0a2:	5bd5 	movhi	r5, -43
+    d0a4:	3b40 	ld	r5, 0(r5)
+    d0a6:	5808 	movi	r4, 8
+    d0a8:	59d5 	movhi	r4, -43
+    d0aa:	3900 	ld	r4, 0(r4)
+    d0ac:	5606 	movi	r3, 6
+    d0ae:	57d5 	movhi	r3, -43
+    d0b0:	36c0 	ld	r3, 0(r3)
+    d0b2:	5404 	movi	r2, 4
+    d0b4:	55d5 	movhi	r2, -43
+    d0b6:	3480 	ld	r2, 0(r2)
+    d0b8:	5202 	movi	r1, 2
+    d0ba:	53d5 	movhi	r1, -43
+    d0bc:	3240 	ld	r1, 0(r1)
+    d0be:	5000 	movi	r0, 0
+    d0c0:	51d5 	movhi	r0, -43
+    d0c2:	3000 	ld	r0, 0(r0)
+    d0c4:	f024 	reti	
+
+0000d0c6 <rest_user2>:
+    d0c6:	5e22 	movi	r7, 34
+    d0c8:	5fd5 	movhi	r7, -43
+    d0ca:	3fc0 	ld	r7, 0(r7)
+    d0cc:	f3f0 	wrs	s1, r7
+    d0ce:	5e20 	movi	r7, 32
+    d0d0:	5fd5 	movhi	r7, -43
+    d0d2:	3fc0 	ld	r7, 0(r7)
+    d0d4:	5c1e 	movi	r6, 30
+    d0d6:	5dd5 	movhi	r6, -43
+    d0d8:	3d80 	ld	r6, 0(r6)
+    d0da:	5a1c 	movi	r5, 28
+    d0dc:	5bd5 	movhi	r5, -43
+    d0de:	3b40 	ld	r5, 0(r5)
+    d0e0:	581a 	movi	r4, 26
+    d0e2:	59d5 	movhi	r4, -43
+    d0e4:	3900 	ld	r4, 0(r4)
+    d0e6:	5618 	movi	r3, 24
+    d0e8:	57d5 	movhi	r3, -43
+    d0ea:	36c0 	ld	r3, 0(r3)
+    d0ec:	5416 	movi	r2, 22
+    d0ee:	55d5 	movhi	r2, -43
+    d0f0:	3480 	ld	r2, 0(r2)
+    d0f2:	5214 	movi	r1, 20
+    d0f4:	53d5 	movhi	r1, -43
+    d0f6:	3240 	ld	r1, 0(r1)
+    d0f8:	5012 	movi	r0, 18
+    d0fa:	51d5 	movhi	r0, -43
+    d0fc:	3000 	ld	r0, 0(r0)
+    d0fe:	f024 	reti	
+
+0000d100 <contextSwitch>:
+    d100:	f9f0 	wrs	s4, r7
+    d102:	5e24 	movi	r7, 36
+    d104:	5fd5 	movhi	r7, -43
+    d106:	3fc0 	ld	r7, 0(r7)
+    d108:	6f21 	bnz	r7, 68
+
+0000d10a <curr_user1>:
+    d10a:	5c01 	movi	r6, 1
+    d10c:	5e24 	movi	r7, 36
+    d10e:	5fd5 	movhi	r7, -43
+    d110:	4dc0 	st	0(r7), r6
+    d112:	5e22 	movi	r7, 34
+    d114:	5fd5 	movhi	r7, -43
+    d116:	3fc0 	ld	r7, 0(r7)
+    d118:	f3f0 	wrs	s1, r7
+    d11a:	5e20 	movi	r7, 32
+    d11c:	5fd5 	movhi	r7, -43
+    d11e:	3fc0 	ld	r7, 0(r7)
+    d120:	5c1e 	movi	r6, 30
+    d122:	5dd5 	movhi	r6, -43
+    d124:	3d80 	ld	r6, 0(r6)
+    d126:	5a1c 	movi	r5, 28
+    d128:	5bd5 	movhi	r5, -43
+    d12a:	3b40 	ld	r5, 0(r5)
+    d12c:	581a 	movi	r4, 26
+    d12e:	59d5 	movhi	r4, -43
+    d130:	3900 	ld	r4, 0(r4)
+    d132:	5618 	movi	r3, 24
+    d134:	57d5 	movhi	r3, -43
+    d136:	36c0 	ld	r3, 0(r3)
+    d138:	5416 	movi	r2, 22
+    d13a:	55d5 	movhi	r2, -43
+    d13c:	3480 	ld	r2, 0(r2)
+    d13e:	5214 	movi	r1, 20
+    d140:	53d5 	movhi	r1, -43
+    d142:	3240 	ld	r1, 0(r1)
+    d144:	5012 	movi	r0, 18
+    d146:	51d5 	movhi	r0, -43
+    d148:	3000 	ld	r0, 0(r0)
+    d14a:	f024 	reti	
+
+0000d14c <curr_user2>:
+    d14c:	5c00 	movi	r6, 0
+    d14e:	5e24 	movi	r7, 36
+    d150:	5fd5 	movhi	r7, -43
+    d152:	4dc0 	st	0(r7), r6
+    d154:	5e10 	movi	r7, 16
+    d156:	5fd5 	movhi	r7, -43
+    d158:	3fc0 	ld	r7, 0(r7)
+    d15a:	f3f0 	wrs	s1, r7
+    d15c:	5e0e 	movi	r7, 14
+    d15e:	5fd5 	movhi	r7, -43
+    d160:	3fc0 	ld	r7, 0(r7)
+    d162:	5c0c 	movi	r6, 12
+    d164:	5dd5 	movhi	r6, -43
+    d166:	3d80 	ld	r6, 0(r6)
+    d168:	5a0a 	movi	r5, 10
+    d16a:	5bd5 	movhi	r5, -43
+    d16c:	3b40 	ld	r5, 0(r5)
+    d16e:	5808 	movi	r4, 8
+    d170:	59d5 	movhi	r4, -43
+    d172:	3900 	ld	r4, 0(r4)
+    d174:	5606 	movi	r3, 6
+    d176:	57d5 	movhi	r3, -43
+    d178:	36c0 	ld	r3, 0(r3)
+    d17a:	5404 	movi	r2, 4
+    d17c:	55d5 	movhi	r2, -43
+    d17e:	3480 	ld	r2, 0(r2)
+    d180:	5202 	movi	r1, 2
+    d182:	53d5 	movhi	r1, -43
+    d184:	3240 	ld	r1, 0(r1)
+    d186:	5000 	movi	r0, 0
+    d188:	51d5 	movhi	r0, -43
+    d18a:	3000 	ld	r0, 0(r0)
+    d18c:	f024 	reti	

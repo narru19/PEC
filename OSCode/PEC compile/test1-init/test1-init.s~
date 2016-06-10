@@ -8,5 +8,4 @@
 	$MOVEI R0, 0x0002
 	wrs S0, R0
 	$MOVEI R0, 0x0000
-	wrs S1, R0
 	reti

@@ -42,7 +42,7 @@
 RSG_guardar:
 		wrs S4, R7 ;se guarda el valor de R7 en el registro temporal S4 para evitar sobreescribir el contexto del usuario
 		$LOADI r7, user_turn
-		bnz R7, guardar_user2
+		bnz R7, curr_user2
 
 guardar_user1:
 
