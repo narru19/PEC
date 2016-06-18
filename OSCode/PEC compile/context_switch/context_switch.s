@@ -41,7 +41,6 @@
 
 RSG_guardar:
 		wrs S4, R7 ;se guarda el valor de R7 en el registro temporal S4 para evitar sobreescribir el contexto del usuario
-		getiid r7		
 		$LOADI r7, user_turn
 		bnz R7, guardar_user2
 
@@ -59,6 +58,9 @@ guardar_user1:
 		$PUSHI user1_r7, R7, R6
 		rds R7, S1 
 		$PUSHI user1_pc, R7, R6 ;se guarda el pc a retornar cuando vuelva a ejecutarse el proceso del usuario
+
+		$MOVEI R3, RSG_tractar
+		jmp R3
 
 
 guardar_user2:		
