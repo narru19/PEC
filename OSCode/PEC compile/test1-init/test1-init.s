@@ -11,7 +11,7 @@ bucle:
 	st  0(R1), R0
 	addi R1, R1, 2
 	cmpeq R3, R1, R2
-	bnz R3, bucle
+	bz R3, bucle
 	
 	$MOVEI R1, 0xD522
 	$MOVEI R0, 0x4000
