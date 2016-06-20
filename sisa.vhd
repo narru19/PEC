@@ -26,10 +26,40 @@ ENTITY sisa IS
 			 VGA_VS		: OUT 	STD_LOGIC;
 			 VGA_R		: OUT		STD_LOGIC_VECTOR(3 DOWNTO 0);
 			 VGA_G		: OUT		STD_LOGIC_VECTOR(3 DOWNTO 0);
-			 VGA_B		: OUT		STD_LOGIC_VECTOR(3 DOWNTO 0));
+			 VGA_B		: OUT		STD_LOGIC_VECTOR(3 DOWNTO 0);
+			 AUD_ADCDAT : IN STD_LOGIC;
+			 AUD_BCLK		: INOUT STD_LOGIC;
+			 AUD_ADCLRCK 	: INOUT STD_LOGIC;
+			 AUD_DACLRCK 	: INOUT STD_LOGIC;
+			 I2C_SDAT	   : INOUT STD_LOGIC;
+			 AUD_XCK			: OUT STD_LOGIC;
+			 AUD_DACDAT 	: OUT STD_LOGIC;
+			 I2C_SCLK	 	: OUT STD_LOGIC
+			 );
 END sisa;
 
 ARCHITECTURE Structure OF sisa IS
+
+
+	COMPONENT DE2_Audio_Example IS 
+		port(
+		
+		CLOCK_50 	: IN STD_LOGIC;
+		CLOCK_27 	: IN STD_LOGIC;
+		KEY			: IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+		SW				: IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+		AUD_ADCDAT  : IN STD_LOGIC;
+		AUD_BCLK		: INOUT STD_LOGIC;
+		AUD_ADCLRCK : INOUT STD_LOGIC;
+		AUD_DACLRCK : INOUT STD_LOGIC;
+		I2C_SDAT	   : INOUT STD_LOGIC;
+		AUD_XCK		: OUT STD_LOGIC;
+		AUD_DACDAT  : OUT STD_LOGIC;
+		I2C_SCLK	 	: OUT STD_LOGIC
+		 
+		);
+	END COMPONENT;
+
 
 	COMPONENT MemoryController IS
 	port ( CLOCK_50  	: IN  	STD_LOGIC;
@@ -153,9 +183,20 @@ ARCHITECTURE Structure OF sisa IS
 	SIGNAL inta_bridge : STD_LOGIC := '0';
 	SIGNAL intr_bridge :	STD_LOGIC := '0';
 	
-	SIGNAL bridge_not_align 	: STD_LOGIC := '0';
-	SIGNAL ilegal_acc_bridge	: STD_LOGIC := '0';
+	SIGNAL bridge_not_align 	    : STD_LOGIC := '0';
+	SIGNAL ilegal_acc_bridge	    : STD_LOGIC := '0';
 	
+	SIGNAL audio_in_available	    : STD_LOGIC;
+	SIGNAL left_channel_audio_in   : STD_LOGIC_VECTOR(31 DOWNTO 0);
+	SIGNAL right_channel_audio_in  : STD_LOGIC_VECTOR(31 DOWNTO 0);
+	SIGNAL read_audio_in 		    : STD_LOGIC;
+
+	SIGNAL audio_out_allowed       : STD_LOGIC;
+	SIGNAL left_channel_audio_out  : STD_LOGIC_VECTOR(31 DOWNTO 0);
+	SIGNAL right_channel_audio_out : STD_LOGIC_VECTOR(31 DOWNTO 0);
+	SIGNAL write_audio_out			 : STD_LOGIC;
+	
+
 BEGIN
 
 	PROCESS(CLOCK_50)
@@ -255,8 +296,28 @@ BEGIN
 							vga_cursor_enable	=> vga_cursor_enable);
 							
 							
+	aud0 : DE2_Audio_Example
+	Port Map(
+	
+			CLOCK_50 	=> CLOCK_50,
+			CLOCK_27 	=> '0',
+			KEY			=> KEY,
+			SW				=>	SW(3 DOWNTO 0),
+			AUD_ADCDAT  => AUD_ADCDAT,
+			AUD_BCLK		=> AUD_BCLK,
+			AUD_ADCLRCK => AUD_ADCLRCK,
+			AUD_DACLRCK => AUD_DACLRCK,
+			I2C_SDAT	   => I2C_SDAT,
+			AUD_XCK		=> AUD_XCK,
+			AUD_DACDAT  => AUD_DACDAT,
+			I2C_SCLK	 	=> I2C_SCLK
+	 
+	);
+--							
+							
 	VGA_R <= red_bridge(3 DOWNTO 0);
 	VGA_B <= blue_bridge(3 DOWNTO 0);
 	VGA_G <= green_bridge(3 DOWNTO 0);
+	
 	
 END Structure;
