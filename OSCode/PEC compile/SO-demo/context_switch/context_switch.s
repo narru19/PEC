@@ -103,7 +103,7 @@ __exc:
 ; Rutina interrupcion reloj
 ; *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 RSI__interrup_timer:
-        $MOVEI r4, tics_timer      ;carga la direccion de memoria donde esta el dato sobre el # de ticks de reloj que han llegado
+        $MOVEI r4, 0x6060      ;carga la direccion de memoria donde esta el dato sobre el # de ticks de reloj que han llegado
         ld     r3, 0(r4)           ;carga el numero de ticks
         addi   r3, r3, 1           ;lo incrementa en una unidad
         st     0(r4), r3           ;actualiza la variable sobre el numero de ticks
@@ -123,7 +123,7 @@ RSI__interrup_timer:
 ; *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 RSI__interrup_keyboard:
         in     r3, 15              ;leemos el valor correspondiente al caracter ASCII de la tecla pulsada
-        $MOVEI r4, tecla_pulsada   ;carga la direccion de memoria donde dejaremos el resultado de la tecla pulsada
+        $MOVEI r4, 0x6062   ;carga la direccion de memoria donde dejaremos el resultado de la tecla pulsada
         st     0(r4), r3           ;actualiza la variable con la nueva tecla pulsada
 		$MOVEI R6, RSG_restaurar
         jmp    r6         ; R6 contine (ya que no lo hemos modificado) la direccion de retorno para gacer el fin de la RSG (fin del servicio de interrupcion)

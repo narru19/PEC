@@ -8,7 +8,7 @@ OUTPUT_ARCH(sisa)
 SECTIONS
 {
   /* Ens situem a la part de flash */
-  . = 0x0000 ;
+  . = 0x4000 ;
 
   /* text space */
   .sistema :
@@ -28,7 +28,7 @@ SECTIONS
   __user_end = __user_start + SIZEOF(.user);
   
    /* Ens situem en la part de sistema */
-  . = 0x2000 ;
+  . = 0x6000 ;
 
   .sysdata : {  entrada.o(.data) corre_letras.o(.data)  }
 }

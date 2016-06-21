@@ -7,16 +7,16 @@ start address 0x0000d000
 
 Program Header:
     LOAD off    0x00000000 vaddr 0x0000cf8c paddr 0x0000cf8c align 2**0
-         filesz 0x00000208 memsz 0x00000208 flags r-x
-    LOAD off    0x00000208 vaddr 0x0000d500 paddr 0x0000d194 align 2**0
+         filesz 0x00000242 memsz 0x00000242 flags r-x
+    LOAD off    0x00000242 vaddr 0x0000d500 paddr 0x0000d1ce align 2**0
          filesz 0x00000026 memsz 0x00000026 flags rw-
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn  Flags
-  0 .text         00000194  0000d000  0000d000  00000074  2**0  CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000026  0000d500  0000d194  00000208  2**1  CONTENTS, ALLOC, LOAD, DATA
-  2 .stab         00000414  00000000  00000000  00000230  2**2  CONTENTS, READONLY, DEBUGGING
-  3 .stabstr      00000058  00000000  00000000  00000644  2**0  CONTENTS, READONLY, DEBUGGING
+  0 .text         000001ce  0000d000  0000d000  00000074  2**0  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000026  0000d500  0000d1ce  00000242  2**1  CONTENTS, ALLOC, LOAD, DATA
+  2 .stab         00000534  00000000  00000000  00000268  2**2  CONTENTS, READONLY, DEBUGGING
+  3 .stabstr      0000004e  00000000  00000000  0000079c  2**0  CONTENTS, READONLY, DEBUGGING
 SYMBOL TABLE:
 0000d000 l    d  .text	00000000 .text
 0000d500 l    d  .data	00000000 .data
@@ -48,20 +48,24 @@ SYMBOL TABLE:
 0000d04a l       .text	00000000 guardar_user2
 0000d00a l       .text	00000000 guardar_user1
 0000d084 l       .text	00000000 RSG_tractar
-0000d106 l       .text	00000000 contextSwitch
-0000d08a l       .text	00000000 RSG_restaurar
-0000d0cc l       .text	00000000 rest_user2
-0000d092 l       .text	00000000 rest_user1
-0000d152 l       .text	00000000 curr_user2
-0000d110 l       .text	00000000 curr_user1
+0000d092 l       .text	00000000 __int
+0000d09c l       .text	00000000 __exc
+0000d09e l       .text	00000000 RSI__interrup_timer
+0000d0b6 l       .text	00000000 RSI__interrup_keyboard
+0000d140 l       .text	00000000 contextSwitch
+0000d0c4 l       .text	00000000 RSG_restaurar
+0000d106 l       .text	00000000 rest_user2
+0000d0cc l       .text	00000000 rest_user1
+0000d18c l       .text	00000000 curr_user2
+0000d14a l       .text	00000000 curr_user1
 0000d000 g       .text	00000000 __entry_point
-0000d194 g       .text	00000000 _etext
-0000d1ba g       *ABS*	00000000 __data_load_end
-0000d194 g       *ABS*	00000000 __data_load_start
-0000d194 g       .text	00000000 __dtors_end
-0000d194 g       .text	00000000 __ctors_start
-0000d194 g       .text	00000000 __dtors_start
-0000d194 g       .text	00000000 __ctors_end
+0000d1ce g       .text	00000000 _etext
+0000d1f4 g       *ABS*	00000000 __data_load_end
+0000d1ce g       *ABS*	00000000 __data_load_start
+0000d1ce g       .text	00000000 __dtors_end
+0000d1ce g       .text	00000000 __ctors_start
+0000d1ce g       .text	00000000 __dtors_start
+0000d1ce g       .text	00000000 __ctors_end
 0000d526 g       .data	00000000 _edata
 0000d526 g       *ABS*	00000000 _end
 
@@ -151,151 +155,188 @@ Disassembly of section .text:
     d082:	4f80 	st	0(r6), r7
 
 0000d084 <RSG_tractar>:
-    d084:	5606 	movi	r3, 6
-    d086:	57d1 	movhi	r3, -47
-    d088:	a0c3 	jmp	r3
+    d084:	f2ac 	rds	r1, s2
+    d086:	540f 	movi	r2, 15
+    d088:	1642 	cmplt	r3, r1, r2
+    d08a:	6603 	bz	r3, 8
+    d08c:	5a9c 	movi	r5, -100
+    d08e:	5bd0 	movhi	r5, -48
+    d090:	a143 	jmp	r5
 
-0000d08a <RSG_restaurar>:
-    d08a:	5e24 	movi	r7, 36
-    d08c:	5fd5 	movhi	r7, -43
-    d08e:	3fc0 	ld	r7, 0(r7)
-    d090:	6f1d 	bnz	r7, 60
+0000d092 <__int>:
+    d092:	f228 	getiid	r1
+    d094:	5400 	movi	r2, 0
+    d096:	1499 	cmpeq	r2, r2, r1
+    d098:	6502 	bnz	r2, 6
+    d09a:	640d 	bz	r2, 28
 
-0000d092 <rest_user1>:
-    d092:	5e10 	movi	r7, 16
-    d094:	5fd5 	movhi	r7, -43
-    d096:	3fc0 	ld	r7, 0(r7)
-    d098:	f3f0 	wrs	s1, r7
-    d09a:	5e0e 	movi	r7, 14
-    d09c:	5fd5 	movhi	r7, -43
-    d09e:	3fc0 	ld	r7, 0(r7)
-    d0a0:	5c0c 	movi	r6, 12
-    d0a2:	5dd5 	movhi	r6, -43
-    d0a4:	3d80 	ld	r6, 0(r6)
-    d0a6:	5a0a 	movi	r5, 10
-    d0a8:	5bd5 	movhi	r5, -43
-    d0aa:	3b40 	ld	r5, 0(r5)
-    d0ac:	5808 	movi	r4, 8
-    d0ae:	59d5 	movhi	r4, -43
-    d0b0:	3900 	ld	r4, 0(r4)
-    d0b2:	5606 	movi	r3, 6
-    d0b4:	57d5 	movhi	r3, -43
-    d0b6:	36c0 	ld	r3, 0(r3)
-    d0b8:	5404 	movi	r2, 4
-    d0ba:	55d5 	movhi	r2, -43
-    d0bc:	3480 	ld	r2, 0(r2)
-    d0be:	5202 	movi	r1, 2
-    d0c0:	53d5 	movhi	r1, -43
-    d0c2:	3240 	ld	r1, 0(r1)
-    d0c4:	5000 	movi	r0, 0
-    d0c6:	51d5 	movhi	r0, -43
-    d0c8:	3000 	ld	r0, 0(r0)
-    d0ca:	f024 	reti	
+0000d09c <__exc>:
+    d09c:	ffff 	halt	
 
-0000d0cc <rest_user2>:
-    d0cc:	5e22 	movi	r7, 34
+0000d09e <RSI__interrup_timer>:
+    d09e:	5860 	movi	r4, 96
+    d0a0:	5960 	movhi	r4, 96
+    d0a2:	3700 	ld	r3, 0(r4)
+    d0a4:	26c1 	addi	r3, r3, 1
+    d0a6:	4700 	st	0(r4), r3
+    d0a8:	7706 	out	6, r3
+    d0aa:	5640 	movi	r3, 64
+    d0ac:	57d1 	movhi	r3, -47
+    d0ae:	a0c3 	jmp	r3
+    d0b0:	5cc4 	movi	r6, -60
+    d0b2:	5dd0 	movhi	r6, -48
+    d0b4:	a183 	jmp	r6
+
+0000d0b6 <RSI__interrup_keyboard>:
+    d0b6:	760f 	in	r3, 15
+    d0b8:	5862 	movi	r4, 98
+    d0ba:	5960 	movhi	r4, 96
+    d0bc:	4700 	st	0(r4), r3
+    d0be:	5cc4 	movi	r6, -60
+    d0c0:	5dd0 	movhi	r6, -48
+    d0c2:	a183 	jmp	r6
+
+0000d0c4 <RSG_restaurar>:
+    d0c4:	5e24 	movi	r7, 36
+    d0c6:	5fd5 	movhi	r7, -43
+    d0c8:	3fc0 	ld	r7, 0(r7)
+    d0ca:	6f1d 	bnz	r7, 60
+
+0000d0cc <rest_user1>:
+    d0cc:	5e10 	movi	r7, 16
     d0ce:	5fd5 	movhi	r7, -43
     d0d0:	3fc0 	ld	r7, 0(r7)
     d0d2:	f3f0 	wrs	s1, r7
-    d0d4:	5e20 	movi	r7, 32
+    d0d4:	5e0e 	movi	r7, 14
     d0d6:	5fd5 	movhi	r7, -43
     d0d8:	3fc0 	ld	r7, 0(r7)
-    d0da:	5c1e 	movi	r6, 30
+    d0da:	5c0c 	movi	r6, 12
     d0dc:	5dd5 	movhi	r6, -43
     d0de:	3d80 	ld	r6, 0(r6)
-    d0e0:	5a1c 	movi	r5, 28
+    d0e0:	5a0a 	movi	r5, 10
     d0e2:	5bd5 	movhi	r5, -43
     d0e4:	3b40 	ld	r5, 0(r5)
-    d0e6:	581a 	movi	r4, 26
+    d0e6:	5808 	movi	r4, 8
     d0e8:	59d5 	movhi	r4, -43
     d0ea:	3900 	ld	r4, 0(r4)
-    d0ec:	5618 	movi	r3, 24
+    d0ec:	5606 	movi	r3, 6
     d0ee:	57d5 	movhi	r3, -43
     d0f0:	36c0 	ld	r3, 0(r3)
-    d0f2:	5416 	movi	r2, 22
+    d0f2:	5404 	movi	r2, 4
     d0f4:	55d5 	movhi	r2, -43
     d0f6:	3480 	ld	r2, 0(r2)
-    d0f8:	5214 	movi	r1, 20
+    d0f8:	5202 	movi	r1, 2
     d0fa:	53d5 	movhi	r1, -43
     d0fc:	3240 	ld	r1, 0(r1)
-    d0fe:	5012 	movi	r0, 18
+    d0fe:	5000 	movi	r0, 0
     d100:	51d5 	movhi	r0, -43
     d102:	3000 	ld	r0, 0(r0)
     d104:	f024 	reti	
 
-0000d106 <contextSwitch>:
-    d106:	f9f0 	wrs	s4, r7
-    d108:	5e24 	movi	r7, 36
-    d10a:	5fd5 	movhi	r7, -43
-    d10c:	3fc0 	ld	r7, 0(r7)
-    d10e:	6f21 	bnz	r7, 68
+0000d106 <rest_user2>:
+    d106:	5e22 	movi	r7, 34
+    d108:	5fd5 	movhi	r7, -43
+    d10a:	3fc0 	ld	r7, 0(r7)
+    d10c:	f3f0 	wrs	s1, r7
+    d10e:	5e20 	movi	r7, 32
+    d110:	5fd5 	movhi	r7, -43
+    d112:	3fc0 	ld	r7, 0(r7)
+    d114:	5c1e 	movi	r6, 30
+    d116:	5dd5 	movhi	r6, -43
+    d118:	3d80 	ld	r6, 0(r6)
+    d11a:	5a1c 	movi	r5, 28
+    d11c:	5bd5 	movhi	r5, -43
+    d11e:	3b40 	ld	r5, 0(r5)
+    d120:	581a 	movi	r4, 26
+    d122:	59d5 	movhi	r4, -43
+    d124:	3900 	ld	r4, 0(r4)
+    d126:	5618 	movi	r3, 24
+    d128:	57d5 	movhi	r3, -43
+    d12a:	36c0 	ld	r3, 0(r3)
+    d12c:	5416 	movi	r2, 22
+    d12e:	55d5 	movhi	r2, -43
+    d130:	3480 	ld	r2, 0(r2)
+    d132:	5214 	movi	r1, 20
+    d134:	53d5 	movhi	r1, -43
+    d136:	3240 	ld	r1, 0(r1)
+    d138:	5012 	movi	r0, 18
+    d13a:	51d5 	movhi	r0, -43
+    d13c:	3000 	ld	r0, 0(r0)
+    d13e:	f024 	reti	
 
-0000d110 <curr_user1>:
-    d110:	5c01 	movi	r6, 1
-    d112:	5e24 	movi	r7, 36
-    d114:	5fd5 	movhi	r7, -43
-    d116:	4dc0 	st	0(r7), r6
-    d118:	5e22 	movi	r7, 34
-    d11a:	5fd5 	movhi	r7, -43
-    d11c:	3fc0 	ld	r7, 0(r7)
-    d11e:	f3f0 	wrs	s1, r7
-    d120:	5e20 	movi	r7, 32
-    d122:	5fd5 	movhi	r7, -43
-    d124:	3fc0 	ld	r7, 0(r7)
-    d126:	5c1e 	movi	r6, 30
-    d128:	5dd5 	movhi	r6, -43
-    d12a:	3d80 	ld	r6, 0(r6)
-    d12c:	5a1c 	movi	r5, 28
-    d12e:	5bd5 	movhi	r5, -43
-    d130:	3b40 	ld	r5, 0(r5)
-    d132:	581a 	movi	r4, 26
-    d134:	59d5 	movhi	r4, -43
-    d136:	3900 	ld	r4, 0(r4)
-    d138:	5618 	movi	r3, 24
-    d13a:	57d5 	movhi	r3, -43
-    d13c:	36c0 	ld	r3, 0(r3)
-    d13e:	5416 	movi	r2, 22
-    d140:	55d5 	movhi	r2, -43
-    d142:	3480 	ld	r2, 0(r2)
-    d144:	5214 	movi	r1, 20
-    d146:	53d5 	movhi	r1, -43
-    d148:	3240 	ld	r1, 0(r1)
-    d14a:	5012 	movi	r0, 18
-    d14c:	51d5 	movhi	r0, -43
-    d14e:	3000 	ld	r0, 0(r0)
-    d150:	f024 	reti	
+0000d140 <contextSwitch>:
+    d140:	f9f0 	wrs	s4, r7
+    d142:	5e24 	movi	r7, 36
+    d144:	5fd5 	movhi	r7, -43
+    d146:	3fc0 	ld	r7, 0(r7)
+    d148:	6f21 	bnz	r7, 68
 
-0000d152 <curr_user2>:
-    d152:	5c00 	movi	r6, 0
-    d154:	5e24 	movi	r7, 36
-    d156:	5fd5 	movhi	r7, -43
-    d158:	4dc0 	st	0(r7), r6
-    d15a:	5e10 	movi	r7, 16
+0000d14a <curr_user1>:
+    d14a:	5c01 	movi	r6, 1
+    d14c:	5e24 	movi	r7, 36
+    d14e:	5fd5 	movhi	r7, -43
+    d150:	4dc0 	st	0(r7), r6
+    d152:	5e22 	movi	r7, 34
+    d154:	5fd5 	movhi	r7, -43
+    d156:	3fc0 	ld	r7, 0(r7)
+    d158:	f3f0 	wrs	s1, r7
+    d15a:	5e20 	movi	r7, 32
     d15c:	5fd5 	movhi	r7, -43
     d15e:	3fc0 	ld	r7, 0(r7)
-    d160:	f3f0 	wrs	s1, r7
-    d162:	5e0e 	movi	r7, 14
-    d164:	5fd5 	movhi	r7, -43
-    d166:	3fc0 	ld	r7, 0(r7)
-    d168:	5c0c 	movi	r6, 12
-    d16a:	5dd5 	movhi	r6, -43
-    d16c:	3d80 	ld	r6, 0(r6)
-    d16e:	5a0a 	movi	r5, 10
-    d170:	5bd5 	movhi	r5, -43
-    d172:	3b40 	ld	r5, 0(r5)
-    d174:	5808 	movi	r4, 8
-    d176:	59d5 	movhi	r4, -43
-    d178:	3900 	ld	r4, 0(r4)
-    d17a:	5606 	movi	r3, 6
-    d17c:	57d5 	movhi	r3, -43
-    d17e:	36c0 	ld	r3, 0(r3)
-    d180:	5404 	movi	r2, 4
-    d182:	55d5 	movhi	r2, -43
-    d184:	3480 	ld	r2, 0(r2)
-    d186:	5202 	movi	r1, 2
-    d188:	53d5 	movhi	r1, -43
-    d18a:	3240 	ld	r1, 0(r1)
-    d18c:	5000 	movi	r0, 0
-    d18e:	51d5 	movhi	r0, -43
-    d190:	3000 	ld	r0, 0(r0)
-    d192:	f024 	reti	
+    d160:	5c1e 	movi	r6, 30
+    d162:	5dd5 	movhi	r6, -43
+    d164:	3d80 	ld	r6, 0(r6)
+    d166:	5a1c 	movi	r5, 28
+    d168:	5bd5 	movhi	r5, -43
+    d16a:	3b40 	ld	r5, 0(r5)
+    d16c:	581a 	movi	r4, 26
+    d16e:	59d5 	movhi	r4, -43
+    d170:	3900 	ld	r4, 0(r4)
+    d172:	5618 	movi	r3, 24
+    d174:	57d5 	movhi	r3, -43
+    d176:	36c0 	ld	r3, 0(r3)
+    d178:	5416 	movi	r2, 22
+    d17a:	55d5 	movhi	r2, -43
+    d17c:	3480 	ld	r2, 0(r2)
+    d17e:	5214 	movi	r1, 20
+    d180:	53d5 	movhi	r1, -43
+    d182:	3240 	ld	r1, 0(r1)
+    d184:	5012 	movi	r0, 18
+    d186:	51d5 	movhi	r0, -43
+    d188:	3000 	ld	r0, 0(r0)
+    d18a:	f024 	reti	
+
+0000d18c <curr_user2>:
+    d18c:	5c00 	movi	r6, 0
+    d18e:	5e24 	movi	r7, 36
+    d190:	5fd5 	movhi	r7, -43
+    d192:	4dc0 	st	0(r7), r6
+    d194:	5e10 	movi	r7, 16
+    d196:	5fd5 	movhi	r7, -43
+    d198:	3fc0 	ld	r7, 0(r7)
+    d19a:	f3f0 	wrs	s1, r7
+    d19c:	5e0e 	movi	r7, 14
+    d19e:	5fd5 	movhi	r7, -43
+    d1a0:	3fc0 	ld	r7, 0(r7)
+    d1a2:	5c0c 	movi	r6, 12
+    d1a4:	5dd5 	movhi	r6, -43
+    d1a6:	3d80 	ld	r6, 0(r6)
+    d1a8:	5a0a 	movi	r5, 10
+    d1aa:	5bd5 	movhi	r5, -43
+    d1ac:	3b40 	ld	r5, 0(r5)
+    d1ae:	5808 	movi	r4, 8
+    d1b0:	59d5 	movhi	r4, -43
+    d1b2:	3900 	ld	r4, 0(r4)
+    d1b4:	5606 	movi	r3, 6
+    d1b6:	57d5 	movhi	r3, -43
+    d1b8:	36c0 	ld	r3, 0(r3)
+    d1ba:	5404 	movi	r2, 4
+    d1bc:	55d5 	movhi	r2, -43
+    d1be:	3480 	ld	r2, 0(r2)
+    d1c0:	5202 	movi	r1, 2
+    d1c2:	53d5 	movhi	r1, -43
+    d1c4:	3240 	ld	r1, 0(r1)
+    d1c6:	5000 	movi	r0, 0
+    d1c8:	51d5 	movhi	r0, -43
+    d1ca:	3000 	ld	r0, 0(r0)
+    d1cc:	f024 	reti	
