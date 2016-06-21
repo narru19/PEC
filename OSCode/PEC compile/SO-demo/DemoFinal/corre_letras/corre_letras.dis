@@ -1,0 +1,1558 @@
+
+temp_corre_letras.o:     formato del fichero elf32-sisa
+temp_corre_letras.o
+arquitectura: sisa:3, opciones 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+dirección de inicio 0x00000000
+
+Encabezado del Programa:
+    LOAD off    0x00000000 vaddr 0x00007f6c paddr 0x00007f6c align 2**0
+         filesz 0x00000128 memsz 0x00000128 flags rw-
+    LOAD off    0x00000120 vaddr 0x000080a0 paddr 0x000080a0 align 2**0
+         filesz 0x00000000 memsz 0x00000040 flags rw-
+    LOAD off    0x00000128 vaddr 0x0000c000 paddr 0x0000c000 align 2**0
+         filesz 0x00000938 memsz 0x00000938 flags r-x
+
+Secciones:
+Ind Nombre        Tamaño    VMA       LMA       Desp fich Alin  Opciones
+  0 .sistema      00000938  0000c000  0000c000  00000128  2**1  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .sysdata      00000094  00008000  00008000  00000094  2**1  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000040  000080a0  000080a0  00000128  2**4  ALLOC
+  3 .stab         000007bc  000080e0  000080e0  00000a60  2**2  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      000005a8  0000889c  0000889c  0000121c  2**0  CONTENTS, READONLY, DEBUGGING
+SYMBOL TABLE:
+0000c000 l    d  .sistema	00000000 .sistema
+0000c0a2 l       .sistema	00000000 RSI__interrup_timer
+0000c018 l       .sistema	00000000 RSI_default_resume
+0000c0b0 l       .sistema	00000000 RSI__interrup_keyboard
+0000c01a l       .sistema	00000000 RSE_default_halt
+0000c01c l       .sistema	00000000 RSE_default_resume
+0000c01e l       .sistema	00000000 RSE_excepcion_TLB
+0000c016 l       .sistema	00000000 __exit
+0000c060 l       .sistema	00000000 __call_sistema
+0000c074 l       .sistema	00000000 __interrupcion
+0000c052 l       .sistema	00000000 __excepcion
+0000c082 l       .sistema	00000000 __finRSG
+0000c0d8 l       .sistema	00000000 __repe
+0000c000 g       .sistema	00000000 __entry_point
+0000c24c g     F .sistema	00000334 reset_corre_letras
+0000c1b0 g     F .sistema	0000009c write
+0000c580 g     F .sistema	000003b8 main
+0000c026 g       .sistema	00000000 RSG
+0000c178 g     F .sistema	00000038 strlen_s
+0000c12e g     F .sistema	0000004a mostrar_nueva_posicion
+0000c0ec g     F .sistema	00000042 borrar_letra
+0000c0ba g     F .sistema	00000032 clear_screen
+
+
+Desensamblado de la sección .sistema:
+
+0000c000 <__entry_point>:
+    c000:	5226 	movi	r1, 38
+    c002:	53c0 	movhi	r1, -64
+    c004:	fa70 	wrs	s5, r1
+    c006:	5e00 	movi	r7, 0
+    c008:	5f40 	movhi	r7, 64
+    c00a:	5a16 	movi	r5, 22
+    c00c:	5bc0 	movhi	r5, -64
+    c00e:	5c80 	movi	r6, -128
+    c010:	5dc5 	movhi	r6, -59
+    c012:	f020 	ei	
+    c014:	a183 	jmp	r6
+
+0000c016 <__exit>:
+    c016:	ffff 	halt	
+
+0000c018 <RSI_default_resume>:
+    c018:	a183 	jmp	r6
+
+0000c01a <RSE_default_halt>:
+    c01a:	ffff 	halt	
+
+0000c01c <RSE_default_resume>:
+    c01c:	a183 	jmp	r6
+
+0000c01e <RSE_excepcion_TLB>:
+    c01e:	f46c 	rds	r2, s1
+    c020:	24be 	addi	r2, r2, -2
+    c022:	f2b0 	wrs	s1, r2
+    c024:	a183 	jmp	r6
+
+0000c026 <RSG>:
+    c026:	2ff2 	addi	r7, r7, -14
+    c028:	41c6 	st	12(r7), r0
+    c02a:	43c5 	st	10(r7), r1
+    c02c:	45c4 	st	8(r7), r2
+    c02e:	47c3 	st	6(r7), r3
+    c030:	49c2 	st	4(r7), r4
+    c032:	4bc1 	st	2(r7), r5
+    c034:	4dc0 	st	0(r7), r6
+    c036:	f22c 	rds	r1, s0
+    c038:	f46c 	rds	r2, s1
+    c03a:	f6ec 	rds	r3, s3
+    c03c:	2ffa 	addi	r7, r7, -6
+    c03e:	43c2 	st	4(r7), r1
+    c040:	45c1 	st	2(r7), r2
+    c042:	47c0 	st	0(r7), r3
+    c044:	f2ac 	rds	r1, s2
+    c046:	540e 	movi	r2, 14
+    c048:	165a 	cmpeq	r3, r1, r2
+    c04a:	670a 	bnz	r3, 22
+    c04c:	540f 	movi	r2, 15
+    c04e:	165a 	cmpeq	r3, r1, r2
+    c050:	6711 	bnz	r3, 36
+
+0000c052 <__excepcion>:
+    c052:	5408 	movi	r2, 8
+    c054:	5580 	movhi	r2, -128
+    c056:	0261 	add	r1, r1, r1
+    c058:	04a1 	add	r2, r2, r1
+    c05a:	3480 	ld	r2, 0(r2)
+    c05c:	ac84 	jal	r6, r2
+    c05e:	6611 	bz	r3, 36
+
+0000c060 <__call_sistema>:
+    c060:	f2ec 	rds	r1, s3
+    c062:	5407 	movi	r2, 7
+    c064:	0242 	and	r1, r1, r2
+    c066:	0261 	add	r1, r1, r1
+    c068:	5424 	movi	r2, 36
+    c06a:	5580 	movhi	r2, -128
+    c06c:	04a1 	add	r2, r2, r1
+    c06e:	3480 	ld	r2, 0(r2)
+    c070:	ac84 	jal	r6, r2
+    c072:	6707 	bnz	r3, 16
+
+0000c074 <__interrupcion>:
+    c074:	f228 	getiid	r1
+    c076:	0261 	add	r1, r1, r1
+    c078:	5400 	movi	r2, 0
+    c07a:	5580 	movhi	r2, -128
+    c07c:	04a1 	add	r2, r2, r1
+    c07e:	3480 	ld	r2, 0(r2)
+    c080:	ac84 	jal	r6, r2
+
+0000c082 <__finRSG>:
+    c082:	37c0 	ld	r3, 0(r7)
+    c084:	35c1 	ld	r2, 2(r7)
+    c086:	33c2 	ld	r1, 4(r7)
+    c088:	2fc6 	addi	r7, r7, 6
+    c08a:	f6f0 	wrs	s3, r3
+    c08c:	f2b0 	wrs	s1, r2
+    c08e:	f070 	wrs	s0, r1
+    c090:	3dc0 	ld	r6, 0(r7)
+    c092:	3bc1 	ld	r5, 2(r7)
+    c094:	39c2 	ld	r4, 4(r7)
+    c096:	37c3 	ld	r3, 6(r7)
+    c098:	35c4 	ld	r2, 8(r7)
+    c09a:	33c5 	ld	r1, 10(r7)
+    c09c:	31c6 	ld	r0, 12(r7)
+    c09e:	2fce 	addi	r7, r7, 14
+    c0a0:	f024 	reti	
+
+0000c0a2 <RSI__interrup_timer>:
+    c0a2:	58a0 	movi	r4, -96
+    c0a4:	5980 	movhi	r4, -128
+    c0a6:	3700 	ld	r3, 0(r4)
+    c0a8:	26c1 	addi	r3, r3, 1
+    c0aa:	4700 	st	0(r4), r3
+    c0ac:	7706 	out	6, r3
+    c0ae:	a183 	jmp	r6
+
+0000c0b0 <RSI__interrup_keyboard>:
+    c0b0:	760f 	in	r3, 15
+    c0b2:	58a2 	movi	r4, -94
+    c0b4:	5980 	movhi	r4, -128
+    c0b6:	4700 	st	0(r4), r3
+    c0b8:	a183 	jmp	r6
+
+0000c0ba <clear_screen>:
+* Borra la pantalla: Escribe 80x30 caracteres (espacios con   *
+* fondo negro) en la memoria de la pantalla (0xA000)          *
+**************************************************************/ 
+void clear_screen(void)
+{
+    c0ba:	2ff2 	addi	r7, r7, -14
+    c0bc:	4bc6 	st	12(r7), r5
+    c0be:	4dc5 	st	10(r7), r6
+    c0c0:	2dca 	addi	r6, r7, 10
+    c0c2:	45c1 	st	2(r7), r2
+    c0c4:	47c0 	st	0(r7), r3
+    int aux1, aux2, aux3;
+
+    __asm__ (  
+    c0c6:	37bd 	ld	r3, -6(r6)
+    c0c8:	35be 	ld	r2, -4(r6)
+    c0ca:	33bf 	ld	r1, -2(r6)
+    c0cc:	5600 	movi	r3, 0
+    c0ce:	57a0 	movhi	r3, -96
+    c0d0:	5460 	movi	r2, 96
+    c0d2:	5509 	movhi	r2, 9
+    c0d4:	5220 	movi	r1, 32
+    c0d6:	5300 	movhi	r1, 0
+
+0000c0d8 <__repe>:
+    c0d8:	42c0 	st	0(r3), r1
+    c0da:	26c2 	addi	r3, r3, 2
+    c0dc:	24bf 	addi	r2, r2, -1
+    c0de:	65fc 	bnz	r2, -6
+            "movi  %0, lo(0xA000)\n\t"   //0xA000 direccion de inicio de la memoria de video
+            "movhi %0, hi(0xA000)\n\t"
+            "movi  %1, lo(2400)\n\t"     //(80*30=2400=0x0960) numero caracteres de la pantalla
+            "movhi %1, hi(2400)\n\t"
+            "movi  %2, lo(0x0020)\n\t"
+            "movhi %2, hi(0x0020)\n\t"   //un espacio en color negro
+            "__repe: st 0(%0), %2\n\t"
+            "addi  %0, %0,2\n\t"
+            "addi  %1, %1,-1\n\t"
+            "bnz   %1, __repe\n\t"
+            : /* sin salidas*/
+            : "r" (aux1),
+              "r" (aux2),
+              "r" (aux3));  
+}
+    c0e0:	35c1 	ld	r2, 2(r7)
+    c0e2:	37c0 	ld	r3, 0(r7)
+    c0e4:	3dc5 	ld	r6, 10(r7)
+    c0e6:	3bc6 	ld	r5, 12(r7)
+    c0e8:	2fce 	addi	r7, r7, 14
+    c0ea:	a143 	jmp	r5
+
+0000c0ec <borrar_letra>:
+
+
+/**************************************************************
+* Borra un caracter en la pantalla: Escribe un espacio con    *
+* fondo negro en la fila y columnas indicadas                 *
+**************************************************************/ 
+void borrar_letra(int fila, int col)
+{
+    c0ec:	2ff4 	addi	r7, r7, -12
+    c0ee:	4bc5 	st	10(r7), r5
+    c0f0:	4dc4 	st	8(r7), r6
+    c0f2:	2dc8 	addi	r6, r7, 8
+    c0f4:	41c1 	st	2(r7), r0
+    c0f6:	45c0 	st	0(r7), r2
+    int valor;
+    int pos;
+
+    valor=0x0020;               //un espacio en color negro
+    c0f8:	5220 	movi	r1, 32
+    c0fa:	43be 	st	-4(r6), r1
+    pos=(80*fila+col)*2;        // cada caracter ocupa 2 bytes de memoria de video
+    c0fc:	3382 	ld	r1, 4(r6)
+    c0fe:	2440 	addi	r2, r1, 0
+    c100:	5204 	movi	r1, 4
+    c102:	04b1 	sha	r2, r2, r1
+    c104:	5202 	movi	r1, 2
+    c106:	02b1 	sha	r1, r2, r1
+    c108:	04a1 	add	r2, r2, r1
+    c10a:	3383 	ld	r1, 6(r6)
+    c10c:	02a1 	add	r1, r2, r1
+    c10e:	0261 	add	r1, r1, r1
+    c110:	43bf 	st	-2(r6), r1
+    pos=pos + 0xA000;           // la memoria de video empieza en la direccion 0xA000 (40960)
+    c112:	33bf 	ld	r1, -2(r6)
+    c114:	5400 	movi	r2, 0
+    c116:	55a0 	movhi	r2, -96
+    c118:	0262 	add	r1, r1, r2
+    c11a:	43bf 	st	-2(r6), r1
+
+    __asm__ (
+    c11c:	31bf 	ld	r0, -2(r6)
+    c11e:	33be 	ld	r1, -4(r6)
+    c120:	4200 	st	0(r0), r1
+            "st 0(%0), %1"      // %0 corresponde a la variable "pos" que habra sido cargada en un registro
+                                // %1 corresponde a la variable "c" que habra sido cargada en otro registro
+            : /* sin salidas */
+            : "a" (pos),
+              "b" (valor));  
+}
+    c122:	31c1 	ld	r0, 2(r7)
+    c124:	35c0 	ld	r2, 0(r7)
+    c126:	3dc4 	ld	r6, 8(r7)
+    c128:	3bc5 	ld	r5, 10(r7)
+    c12a:	2fcc 	addi	r7, r7, 12
+    c12c:	a143 	jmp	r5
+
+0000c12e <mostrar_nueva_posicion>:
+
+
+/*******************************************************************
+* Muestra un caracter en la pantalla: Escribe el caracter recibido *
+* con el color y fondo indicados en la fila y columnas indicadas   *
+*******************************************************************/ 
+void mostrar_nueva_posicion(int fila, int col, char c, char color)
+{
+    c12e:	2ff4 	addi	r7, r7, -12
+    c130:	4bc5 	st	10(r7), r5
+    c132:	4dc4 	st	8(r7), r6
+    c134:	2dc8 	addi	r6, r7, 8
+    c136:	41c1 	st	2(r7), r0
+    c138:	45c0 	st	0(r7), r2
+    int caracter_compuesto;
+    int pos;
+
+    caracter_compuesto=color*256+c;
+    c13a:	d589 	ldb	r2, 9(r6)
+    c13c:	5208 	movi	r1, 8
+    c13e:	04b1 	sha	r2, r2, r1
+    c140:	d388 	ldb	r1, 8(r6)
+    c142:	02a1 	add	r1, r2, r1
+    c144:	43be 	st	-4(r6), r1
+    pos=(80*fila+col)*2;           // cada caracter ocupa 2 bytes de memoria de video
+    c146:	3382 	ld	r1, 4(r6)
+    c148:	2440 	addi	r2, r1, 0
+    c14a:	5204 	movi	r1, 4
+    c14c:	04b1 	sha	r2, r2, r1
+    c14e:	5202 	movi	r1, 2
+    c150:	02b1 	sha	r1, r2, r1
+    c152:	04a1 	add	r2, r2, r1
+    c154:	3383 	ld	r1, 6(r6)
+    c156:	02a1 	add	r1, r2, r1
+    c158:	0261 	add	r1, r1, r1
+    c15a:	43bf 	st	-2(r6), r1
+    pos=pos + 0xA000;              // la memoria de video empieza en la direccion 0xA000 (40960)
+    c15c:	33bf 	ld	r1, -2(r6)
+    c15e:	5400 	movi	r2, 0
+    c160:	55a0 	movhi	r2, -96
+    c162:	0262 	add	r1, r1, r2
+    c164:	43bf 	st	-2(r6), r1
+
+    __asm__ (
+    c166:	31bf 	ld	r0, -2(r6)
+    c168:	33be 	ld	r1, -4(r6)
+    c16a:	4200 	st	0(r0), r1
+            "st 0(%0), %1"         // %0 corresponde a la variable "pos" que habra sido cargada en un registro
+                                   // %1 corresponde a la variable "c" que habra sido cargada en otro registro
+            : /* sin salidas */
+            : "a" (pos),
+              "b" (caracter_compuesto));  
+}
+    c16c:	31c1 	ld	r0, 2(r7)
+    c16e:	35c0 	ld	r2, 0(r7)
+    c170:	3dc4 	ld	r6, 8(r7)
+    c172:	3bc5 	ld	r5, 10(r7)
+    c174:	2fcc 	addi	r7, r7, 12
+    c176:	a143 	jmp	r5
+
+0000c178 <strlen_s>:
+
+
+/*****************************************************************
+* Devuelve la longitud de una cadena de caracteres *
+******************************************************************/ 
+int strlen_s(char *str)
+{
+    c178:	2ff8 	addi	r7, r7, -8
+    c17a:	4bc3 	st	6(r7), r5
+    c17c:	4dc2 	st	4(r7), r6
+    c17e:	2dc4 	addi	r6, r7, 4
+    c180:	45c0 	st	0(r7), r2
+  int len;
+  for (len = 0; *str++; len++);
+    c182:	5200 	movi	r1, 0
+    c184:	43bf 	st	-2(r6), r1
+    c186:	5a00 	movi	r5, 0
+    c188:	6a03 	bz	r5, 8
+    c18a:	33bf 	ld	r1, -2(r6)
+    c18c:	2241 	addi	r1, r1, 1
+    c18e:	43bf 	st	-2(r6), r1
+    c190:	3382 	ld	r1, 4(r6)
+    c192:	d440 	ldb	r2, 0(r1)
+    c194:	5200 	movi	r1, 0
+    c196:	1299 	cmpeq	r1, r2, r1
+    c198:	0258 	not	r1, r1
+    c19a:	2242 	addi	r1, r1, 2
+    c19c:	3382 	ld	r1, 4(r6)
+    c19e:	2241 	addi	r1, r1, 1
+    c1a0:	4382 	st	4(r6), r1
+    c1a2:	65f3 	bnz	r2, -24
+  return len;
+    c1a4:	33bf 	ld	r1, -2(r6)
+}
+    c1a6:	35c0 	ld	r2, 0(r7)
+    c1a8:	3dc2 	ld	r6, 4(r7)
+    c1aa:	3bc3 	ld	r5, 6(r7)
+    c1ac:	2fc8 	addi	r7, r7, 8
+    c1ae:	a143 	jmp	r5
+
+0000c1b0 <write>:
+
+
+/*****************************************************************
+* Muestra una cadena de caracteres en la pantalla con el color y *
+* el fondo indicados empezando la fila y columnas indicadas      *
+******************************************************************/ 
+int write(int fila, int col, char *buf, int size, char color)
+{
+    c1b0:	2fee 	addi	r7, r7, -18
+    c1b2:	4bc8 	st	16(r7), r5
+    c1b4:	4dc7 	st	14(r7), r6
+    c1b6:	2dce 	addi	r6, r7, 14
+    c1b8:	45c1 	st	2(r7), r2
+    c1ba:	47c0 	st	0(r7), r3
+  int i, t;
+  int f, c, car;
+  t = 0; f = fila; c = col;
+    c1bc:	5200 	movi	r1, 0
+    c1be:	43bc 	st	-8(r6), r1
+    c1c0:	3382 	ld	r1, 4(r6)
+    c1c2:	43bd 	st	-6(r6), r1
+    c1c4:	3383 	ld	r1, 6(r6)
+    c1c6:	43be 	st	-4(r6), r1
+  for (i=0; i<size; i++)   
+    c1c8:	5200 	movi	r1, 0
+    c1ca:	43bb 	st	-10(r6), r1
+    c1cc:	5a32 	movi	r5, 50
+    c1ce:	5bc2 	movhi	r5, -62
+    c1d0:	a143 	jmp	r5
+    {
+      car = buf[i];
+    c1d2:	35bb 	ld	r2, -10(r6)
+    c1d4:	3384 	ld	r1, 8(r6)
+    c1d6:	02a1 	add	r1, r2, r1
+    c1d8:	d240 	ldb	r1, 0(r1)
+    c1da:	43bf 	st	-2(r6), r1
+      mostrar_nueva_posicion(f, c, car, color);
+    c1dc:	33bf 	ld	r1, -2(r6)
+    c1de:	2640 	addi	r3, r1, 0
+    c1e0:	2ffa 	addi	r7, r7, -6
+    c1e2:	25c0 	addi	r2, r7, 0
+    c1e4:	33bd 	ld	r1, -6(r6)
+    c1e6:	4280 	st	0(r2), r1
+    c1e8:	33be 	ld	r1, -4(r6)
+    c1ea:	4281 	st	2(r2), r1
+    c1ec:	e684 	stb	4(r2), r3
+    c1ee:	d38c 	ldb	r1, 12(r6)
+    c1f0:	e285 	stb	5(r2), r1
+    c1f2:	522e 	movi	r1, 46
+    c1f4:	53c1 	movhi	r1, -63
+    c1f6:	aa44 	jal	r5, r1
+    c1f8:	2fc6 	addi	r7, r7, 6
+      t++;
+    c1fa:	33bc 	ld	r1, -8(r6)
+    c1fc:	2241 	addi	r1, r1, 1
+    c1fe:	43bc 	st	-8(r6), r1
+      if (car=='\n') f++;
+    c200:	35bf 	ld	r2, -2(r6)
+    c202:	520a 	movi	r1, 10
+    c204:	1299 	cmpeq	r1, r2, r1
+    c206:	6205 	bz	r1, 12
+    c208:	33bd 	ld	r1, -6(r6)
+    c20a:	2241 	addi	r1, r1, 1
+    c20c:	43bd 	st	-6(r6), r1
+    c20e:	5a00 	movi	r5, 0
+    c210:	6a0d 	bz	r5, 28
+      else if (car=='\r') c=1;
+    c212:	33bf 	ld	r1, -2(r6)
+    c214:	540d 	movi	r2, 13
+    c216:	125a 	cmpeq	r1, r1, r2
+    c218:	6204 	bz	r1, 10
+    c21a:	5201 	movi	r1, 1
+    c21c:	43be 	st	-4(r6), r1
+    c21e:	5a00 	movi	r5, 0
+    c220:	6a05 	bz	r5, 12
+      else if (car!=0) c++;   
+    c222:	33bf 	ld	r1, -2(r6)
+    c224:	6203 	bz	r1, 8
+    c226:	33be 	ld	r1, -4(r6)
+    c228:	2241 	addi	r1, r1, 1
+    c22a:	43be 	st	-4(r6), r1
+    c22c:	33bb 	ld	r1, -10(r6)
+    c22e:	2241 	addi	r1, r1, 1
+    c230:	43bb 	st	-10(r6), r1
+    c232:	33bb 	ld	r1, -10(r6)
+    c234:	3585 	ld	r2, 10(r6)
+    c236:	1242 	cmplt	r1, r1, r2
+    c238:	5ad2 	movi	r5, -46
+    c23a:	5bc1 	movhi	r5, -63
+    c23c:	a341 	jnz	r1, r5
+    }
+
+  return t;
+    c23e:	33bc 	ld	r1, -8(r6)
+}
+    c240:	35c1 	ld	r2, 2(r7)
+    c242:	37c0 	ld	r3, 0(r7)
+    c244:	3dc7 	ld	r6, 14(r7)
+    c246:	3bc8 	ld	r5, 16(r7)
+    c248:	2fd2 	addi	r7, r7, 18
+    c24a:	a143 	jmp	r5
+
+0000c24c <reset_corre_letras>:
+
+
+
+
+#define ANCHO_PANTALLA  80
+#define LIMITE_LETRAS   13
+
+/* colores */
+#define NEGRO           0x00
+#define BLANCO          0x3F
+#define ROJO            0x03
+#define VERDE           0x0C
+#define AZUL            0x30
+#define GRIS_OSCURO     0x15
+#define AZUL_CIELO      0x3C
+#define AMARILLO        0x0F
+#define LILA            0x2A
+#define GRIS_CLARO      0x2A
+#define GRIS_MUY_CLARO  0x3F
+
+char letras[] = {'A','B','C','D','E','F','G','H','I','J','K','L','M'};
+char colores[] = {BLANCO, ROJO, VERDE, AZUL, GRIS_OSCURO, AZUL_CIELO, AMARILLO, LILA, GRIS_CLARO, GRIS_MUY_CLARO, 0x1A, 0X21, 0X2B};
+int divisores[] = {1,2,3,4,5,6,7,8,9,10,11,12,13};
+char mensaje[] = "pulsa 'R' para reiniciar o 'P' para pausa.";
+
+unsigned int tics_timer=0;     //variable global cuyo valor es modificado por la interrupcion de reloj
+unsigned int tecla_pulsada=0;  //variable global cuyo valor es modificado por la interrupcion de teclado
+
+struct letra_t
+{
+    int posicion;    // posicion dentro la linea
+    char caracter;   // caracter a mostrar
+    char color;      // color caracter
+
+};
+
+#define NUMERO_LETRAS  12
+struct letra_t  letra[NUMERO_LETRAS];
+
+
+void reset_corre_letras(void)
+{
+    c24c:	2fe0 	addi	r7, r7, -32
+    c24e:	4bcf 	st	30(r7), r5
+    c250:	4dce 	st	28(r7), r6
+    c252:	2ddc 	addi	r6, r7, 28
+    c254:	5acc 	movi	r5, -52
+    c256:	0fe5 	add	r7, r7, r5
+    c258:	41c3 	st	6(r7), r0
+    c25a:	45c2 	st	4(r7), r2
+    c25c:	47c1 	st	2(r7), r3
+    c25e:	49c0 	st	0(r7), r4
+    clear_screen();      // borrar pantalla
+    c260:	52ba 	movi	r1, -70
+    c262:	53c0 	movhi	r1, -64
+    c264:	aa44 	jal	r5, r1
+
+    write(15, 19, mensaje, strlen_s(mensaje), ROJO);
+    c266:	2ffe 	addi	r7, r7, -2
+    c268:	25c0 	addi	r2, r7, 0
+    c26a:	5268 	movi	r1, 104
+    c26c:	5380 	movhi	r1, -128
+    c26e:	4280 	st	0(r2), r1
+    c270:	5278 	movi	r1, 120
+    c272:	53c1 	movhi	r1, -63
+    c274:	aa44 	jal	r5, r1
+    c276:	2fc2 	addi	r7, r7, 2
+    c278:	2640 	addi	r3, r1, 0
+    c27a:	2ff6 	addi	r7, r7, -10
+    c27c:	25c0 	addi	r2, r7, 0
+    c27e:	520f 	movi	r1, 15
+    c280:	4280 	st	0(r2), r1
+    c282:	5213 	movi	r1, 19
+    c284:	4281 	st	2(r2), r1
+    c286:	5268 	movi	r1, 104
+    c288:	5380 	movhi	r1, -128
+    c28a:	4282 	st	4(r2), r1
+    c28c:	4683 	st	6(r2), r3
+    c28e:	5203 	movi	r1, 3
+    c290:	e288 	stb	8(r2), r1
+    c292:	52b0 	movi	r1, -80
+    c294:	53c1 	movhi	r1, -63
+    c296:	aa44 	jal	r5, r1
+    c298:	2fca 	addi	r7, r7, 10
+    int i;    
+    for (i=0; i<NUMERO_LETRAS; i++) {
+    c29a:	5200 	movi	r1, 0
+    c29c:	43bf 	st	-2(r6), r1
+    c29e:	5a62 	movi	r5, 98
+    c2a0:	5bc5 	movhi	r5, -59
+    c2a2:	a143 	jmp	r5
+        letra[i].posicion=0;
+    c2a4:	35bf 	ld	r2, -2(r6)
+    c2a6:	50b0 	movi	r0, -80
+    c2a8:	5180 	movhi	r0, -128
+    c2aa:	41b8 	st	-16(r6), r0
+    c2ac:	520f 	movi	r1, 15
+    c2ae:	0258 	not	r1, r1
+    c2b0:	2241 	addi	r1, r1, 1
+    c2b2:	02b1 	sha	r1, r2, r1
+    c2b4:	2680 	addi	r3, r2, 0
+    c2b6:	2840 	addi	r4, r1, 0
+    c2b8:	520e 	movi	r1, 14
+    c2ba:	0258 	not	r1, r1
+    c2bc:	2241 	addi	r1, r1, 1
+    c2be:	02f9 	shl	r1, r3, r1
+    c2c0:	43b7 	st	-18(r6), r1
+    c2c2:	5002 	movi	r0, 2
+    c2c4:	5202 	movi	r1, 2
+    c2c6:	43b6 	st	-20(r6), r1
+    c2c8:	0530 	sha	r2, r4, r0
+    c2ca:	31b7 	ld	r0, -18(r6)
+    c2cc:	040a 	or	r2, r0, r2
+    c2ce:	31b6 	ld	r0, -20(r6)
+    c2d0:	02f0 	sha	r1, r3, r0
+    c2d2:	37b8 	ld	r3, -16(r6)
+    c2d4:	04e1 	add	r2, r3, r1
+    c2d6:	5200 	movi	r1, 0
+    c2d8:	4280 	st	0(r2), r1
+        letra[i].caracter=letras[i];
+    c2da:	39bf 	ld	r4, -2(r6)
+    c2dc:	49b9 	st	-14(r6), r4
+    c2de:	39bf 	ld	r4, -2(r6)
+    c2e0:	5034 	movi	r0, 52
+    c2e2:	5180 	movhi	r0, -128
+    c2e4:	520f 	movi	r1, 15
+    c2e6:	0258 	not	r1, r1
+    c2e8:	2241 	addi	r1, r1, 1
+    c2ea:	0731 	sha	r3, r4, r1
+    c2ec:	2300 	addi	r1, r4, 0
+    c2ee:	24c0 	addi	r2, r3, 0
+    c2f0:	0221 	add	r1, r0, r1
+    c2f2:	d240 	ldb	r1, 0(r1)
+    c2f4:	43ba 	st	-12(r6), r1
+    c2f6:	50b0 	movi	r0, -80
+    c2f8:	5180 	movhi	r0, -128
+    c2fa:	41b5 	st	-22(r6), r0
+    c2fc:	520f 	movi	r1, 15
+    c2fe:	0258 	not	r1, r1
+    c300:	2241 	addi	r1, r1, 1
+    c302:	35b9 	ld	r2, -14(r6)
+    c304:	06b1 	sha	r3, r2, r1
+    c306:	39b9 	ld	r4, -14(r6)
+    c308:	2300 	addi	r1, r4, 0
+    c30a:	24c0 	addi	r2, r3, 0
+    c30c:	560e 	movi	r3, 14
+    c30e:	06d8 	not	r3, r3
+    c310:	26c1 	addi	r3, r3, 1
+    c312:	067b 	shl	r3, r1, r3
+    c314:	47b4 	st	-24(r6), r3
+    c316:	5002 	movi	r0, 2
+    c318:	5602 	movi	r3, 2
+    c31a:	47b3 	st	-26(r6), r3
+    c31c:	08b0 	sha	r4, r2, r0
+    c31e:	31b4 	ld	r0, -24(r6)
+    c320:	080c 	or	r4, r0, r4
+    c322:	31b3 	ld	r0, -26(r6)
+    c324:	0670 	sha	r3, r1, r0
+    c326:	5202 	movi	r1, 2
+    c328:	43b1 	st	-30(r6), r1
+    c32a:	5400 	movi	r2, 0
+    c32c:	45b2 	st	-28(r6), r2
+    c32e:	31b1 	ld	r0, -30(r6)
+    c330:	02e0 	add	r1, r3, r0
+    c332:	50b8 	movi	r0, -72
+    c334:	0026 	add	r0, r0, r6
+    c336:	4200 	st	0(r0), r1
+    c338:	52b8 	movi	r1, -72
+    c33a:	0266 	add	r1, r1, r6
+    c33c:	3240 	ld	r1, 0(r1)
+    c33e:	1463 	cmpltu	r2, r1, r3
+    c340:	52bc 	movi	r1, -68
+    c342:	0266 	add	r1, r1, r6
+    c344:	4440 	st	0(r1), r2
+    c346:	35b2 	ld	r2, -28(r6)
+    c348:	0122 	add	r0, r4, r2
+    c34a:	54ba 	movi	r2, -70
+    c34c:	04a6 	add	r2, r2, r6
+    c34e:	4080 	st	0(r2), r0
+    c350:	58bc 	movi	r4, -68
+    c352:	0926 	add	r4, r4, r6
+    c354:	3100 	ld	r0, 0(r4)
+    c356:	58ba 	movi	r4, -70
+    c358:	0926 	add	r4, r4, r6
+    c35a:	3900 	ld	r4, 0(r4)
+    c35c:	0624 	add	r3, r0, r4
+    c35e:	22c0 	addi	r1, r3, 0
+    c360:	50ba 	movi	r0, -70
+    c362:	0026 	add	r0, r0, r6
+    c364:	4200 	st	0(r0), r1
+    c366:	37b5 	ld	r3, -22(r6)
+    c368:	54b8 	movi	r2, -72
+    c36a:	04a6 	add	r2, r2, r6
+    c36c:	3480 	ld	r2, 0(r2)
+    c36e:	02e2 	add	r1, r3, r2
+    c370:	37ba 	ld	r3, -12(r6)
+    c372:	e640 	stb	0(r1), r3
+        letra[i].color=colores[i];
+    c374:	39bf 	ld	r4, -2(r6)
+    c376:	49bb 	st	-10(r6), r4
+    c378:	39bf 	ld	r4, -2(r6)
+    c37a:	5041 	movi	r0, 65
+    c37c:	5180 	movhi	r0, -128
+    c37e:	520f 	movi	r1, 15
+    c380:	0258 	not	r1, r1
+    c382:	2241 	addi	r1, r1, 1
+    c384:	0731 	sha	r3, r4, r1
+    c386:	2300 	addi	r1, r4, 0
+    c388:	24c0 	addi	r2, r3, 0
+    c38a:	0221 	add	r1, r0, r1
+    c38c:	d240 	ldb	r1, 0(r1)
+    c38e:	43bc 	st	-8(r6), r1
+    c390:	50b0 	movi	r0, -80
+    c392:	5180 	movhi	r0, -128
+    c394:	41b0 	st	-32(r6), r0
+    c396:	520f 	movi	r1, 15
+    c398:	0258 	not	r1, r1
+    c39a:	2241 	addi	r1, r1, 1
+    c39c:	35bb 	ld	r2, -10(r6)
+    c39e:	06b1 	sha	r3, r2, r1
+    c3a0:	39bb 	ld	r4, -10(r6)
+    c3a2:	2300 	addi	r1, r4, 0
+    c3a4:	24c0 	addi	r2, r3, 0
+    c3a6:	560e 	movi	r3, 14
+    c3a8:	06d8 	not	r3, r3
+    c3aa:	26c1 	addi	r3, r3, 1
+    c3ac:	067b 	shl	r3, r1, r3
+    c3ae:	47af 	st	-34(r6), r3
+    c3b0:	5002 	movi	r0, 2
+    c3b2:	5602 	movi	r3, 2
+    c3b4:	47ae 	st	-36(r6), r3
+    c3b6:	08b0 	sha	r4, r2, r0
+    c3b8:	31af 	ld	r0, -34(r6)
+    c3ba:	080c 	or	r4, r0, r4
+    c3bc:	31ae 	ld	r0, -36(r6)
+    c3be:	0670 	sha	r3, r1, r0
+    c3c0:	5202 	movi	r1, 2
+    c3c2:	43ac 	st	-40(r6), r1
+    c3c4:	5400 	movi	r2, 0
+    c3c6:	45ad 	st	-38(r6), r2
+    c3c8:	31ac 	ld	r0, -40(r6)
+    c3ca:	02e0 	add	r1, r3, r0
+    c3cc:	50b8 	movi	r0, -72
+    c3ce:	0026 	add	r0, r0, r6
+    c3d0:	4200 	st	0(r0), r1
+    c3d2:	52b8 	movi	r1, -72
+    c3d4:	0266 	add	r1, r1, r6
+    c3d6:	3240 	ld	r1, 0(r1)
+    c3d8:	1463 	cmpltu	r2, r1, r3
+    c3da:	52bc 	movi	r1, -68
+    c3dc:	0266 	add	r1, r1, r6
+    c3de:	4440 	st	0(r1), r2
+    c3e0:	35ad 	ld	r2, -38(r6)
+    c3e2:	0122 	add	r0, r4, r2
+    c3e4:	54ba 	movi	r2, -70
+    c3e6:	04a6 	add	r2, r2, r6
+    c3e8:	4080 	st	0(r2), r0
+    c3ea:	58bc 	movi	r4, -68
+    c3ec:	0926 	add	r4, r4, r6
+    c3ee:	3100 	ld	r0, 0(r4)
+    c3f0:	58ba 	movi	r4, -70
+    c3f2:	0926 	add	r4, r4, r6
+    c3f4:	3900 	ld	r4, 0(r4)
+    c3f6:	0624 	add	r3, r0, r4
+    c3f8:	22c0 	addi	r1, r3, 0
+    c3fa:	50ba 	movi	r0, -70
+    c3fc:	0026 	add	r0, r0, r6
+    c3fe:	4200 	st	0(r0), r1
+    c400:	37b0 	ld	r3, -32(r6)
+    c402:	54b8 	movi	r2, -72
+    c404:	04a6 	add	r2, r2, r6
+    c406:	3480 	ld	r2, 0(r2)
+    c408:	02e2 	add	r1, r3, r2
+    c40a:	37bc 	ld	r3, -8(r6)
+    c40c:	e641 	stb	1(r1), r3
+        mostrar_nueva_posicion(i,letra[i].posicion,letra[i].caracter,letra[i].color);
+    c40e:	35bf 	ld	r2, -2(r6)
+    c410:	58b0 	movi	r4, -80
+    c412:	5980 	movhi	r4, -128
+    c414:	49ab 	st	-42(r6), r4
+    c416:	520f 	movi	r1, 15
+    c418:	0258 	not	r1, r1
+    c41a:	2241 	addi	r1, r1, 1
+    c41c:	02b1 	sha	r1, r2, r1
+    c41e:	2680 	addi	r3, r2, 0
+    c420:	2840 	addi	r4, r1, 0
+    c422:	520e 	movi	r1, 14
+    c424:	0258 	not	r1, r1
+    c426:	2241 	addi	r1, r1, 1
+    c428:	02f9 	shl	r1, r3, r1
+    c42a:	43aa 	st	-44(r6), r1
+    c42c:	5002 	movi	r0, 2
+    c42e:	5202 	movi	r1, 2
+    c430:	43a9 	st	-46(r6), r1
+    c432:	0530 	sha	r2, r4, r0
+    c434:	31aa 	ld	r0, -44(r6)
+    c436:	040a 	or	r2, r0, r2
+    c438:	31a9 	ld	r0, -46(r6)
+    c43a:	02f0 	sha	r1, r3, r0
+    c43c:	37ab 	ld	r3, -42(r6)
+    c43e:	02e1 	add	r1, r3, r1
+    c440:	3240 	ld	r1, 0(r1)
+    c442:	43bd 	st	-6(r6), r1
+    c444:	39bf 	ld	r4, -2(r6)
+    c446:	50b0 	movi	r0, -80
+    c448:	5180 	movhi	r0, -128
+    c44a:	41a8 	st	-48(r6), r0
+    c44c:	520f 	movi	r1, 15
+    c44e:	0258 	not	r1, r1
+    c450:	2241 	addi	r1, r1, 1
+    c452:	0731 	sha	r3, r4, r1
+    c454:	2300 	addi	r1, r4, 0
+    c456:	24c0 	addi	r2, r3, 0
+    c458:	560e 	movi	r3, 14
+    c45a:	06d8 	not	r3, r3
+    c45c:	26c1 	addi	r3, r3, 1
+    c45e:	067b 	shl	r3, r1, r3
+    c460:	47a7 	st	-50(r6), r3
+    c462:	5002 	movi	r0, 2
+    c464:	5602 	movi	r3, 2
+    c466:	47a6 	st	-52(r6), r3
+    c468:	08b0 	sha	r4, r2, r0
+    c46a:	31a7 	ld	r0, -50(r6)
+    c46c:	080c 	or	r4, r0, r4
+    c46e:	31a6 	ld	r0, -52(r6)
+    c470:	0670 	sha	r3, r1, r0
+    c472:	5202 	movi	r1, 2
+    c474:	43a4 	st	-56(r6), r1
+    c476:	5400 	movi	r2, 0
+    c478:	45a5 	st	-54(r6), r2
+    c47a:	31a4 	ld	r0, -56(r6)
+    c47c:	02e0 	add	r1, r3, r0
+    c47e:	50b8 	movi	r0, -72
+    c480:	0026 	add	r0, r0, r6
+    c482:	4200 	st	0(r0), r1
+    c484:	52b8 	movi	r1, -72
+    c486:	0266 	add	r1, r1, r6
+    c488:	3240 	ld	r1, 0(r1)
+    c48a:	1463 	cmpltu	r2, r1, r3
+    c48c:	52bc 	movi	r1, -68
+    c48e:	0266 	add	r1, r1, r6
+    c490:	4440 	st	0(r1), r2
+    c492:	35a5 	ld	r2, -54(r6)
+    c494:	0122 	add	r0, r4, r2
+    c496:	54ba 	movi	r2, -70
+    c498:	04a6 	add	r2, r2, r6
+    c49a:	4080 	st	0(r2), r0
+    c49c:	58bc 	movi	r4, -68
+    c49e:	0926 	add	r4, r4, r6
+    c4a0:	3100 	ld	r0, 0(r4)
+    c4a2:	58ba 	movi	r4, -70
+    c4a4:	0926 	add	r4, r4, r6
+    c4a6:	3900 	ld	r4, 0(r4)
+    c4a8:	0624 	add	r3, r0, r4
+    c4aa:	22c0 	addi	r1, r3, 0
+    c4ac:	50ba 	movi	r0, -70
+    c4ae:	0026 	add	r0, r0, r6
+    c4b0:	4200 	st	0(r0), r1
+    c4b2:	37a8 	ld	r3, -48(r6)
+    c4b4:	54b8 	movi	r2, -72
+    c4b6:	04a6 	add	r2, r2, r6
+    c4b8:	3480 	ld	r2, 0(r2)
+    c4ba:	02e2 	add	r1, r3, r2
+    c4bc:	d240 	ldb	r1, 0(r1)
+    c4be:	43be 	st	-4(r6), r1
+    c4c0:	39bf 	ld	r4, -2(r6)
+    c4c2:	56b0 	movi	r3, -80
+    c4c4:	5780 	movhi	r3, -128
+    c4c6:	47a3 	st	-58(r6), r3
+    c4c8:	520f 	movi	r1, 15
+    c4ca:	0258 	not	r1, r1
+    c4cc:	2241 	addi	r1, r1, 1
+    c4ce:	0731 	sha	r3, r4, r1
+    c4d0:	2300 	addi	r1, r4, 0
+    c4d2:	24c0 	addi	r2, r3, 0
+    c4d4:	560e 	movi	r3, 14
+    c4d6:	06d8 	not	r3, r3
+    c4d8:	26c1 	addi	r3, r3, 1
+    c4da:	067b 	shl	r3, r1, r3
+    c4dc:	47a2 	st	-60(r6), r3
+    c4de:	5002 	movi	r0, 2
+    c4e0:	5802 	movi	r4, 2
+    c4e2:	49a1 	st	-62(r6), r4
+    c4e4:	08b0 	sha	r4, r2, r0
+    c4e6:	31a2 	ld	r0, -60(r6)
+    c4e8:	080c 	or	r4, r0, r4
+    c4ea:	31a1 	ld	r0, -62(r6)
+    c4ec:	0670 	sha	r3, r1, r0
+    c4ee:	5402 	movi	r2, 2
+    c4f0:	52be 	movi	r1, -66
+    c4f2:	0266 	add	r1, r1, r6
+    c4f4:	4440 	st	0(r1), r2
+    c4f6:	5000 	movi	r0, 0
+    c4f8:	41a0 	st	-64(r6), r0
+    c4fa:	52be 	movi	r1, -66
+    c4fc:	0266 	add	r1, r1, r6
+    c4fe:	3240 	ld	r1, 0(r1)
+    c500:	04e1 	add	r2, r3, r1
+    c502:	52b8 	movi	r1, -72
+    c504:	0266 	add	r1, r1, r6
+    c506:	4440 	st	0(r1), r2
+    c508:	54b8 	movi	r2, -72
+    c50a:	04a6 	add	r2, r2, r6
+    c50c:	3480 	ld	r2, 0(r2)
+    c50e:	10a3 	cmpltu	r0, r2, r3
+    c510:	54bc 	movi	r2, -68
+    c512:	04a6 	add	r2, r2, r6
+    c514:	4080 	st	0(r2), r0
+    c516:	31a0 	ld	r0, -64(r6)
+    c518:	0320 	add	r1, r4, r0
+    c51a:	50ba 	movi	r0, -70
+    c51c:	0026 	add	r0, r0, r6
+    c51e:	4200 	st	0(r0), r1
+    c520:	52bc 	movi	r1, -68
+    c522:	0266 	add	r1, r1, r6
+    c524:	3440 	ld	r2, 0(r1)
+    c526:	52ba 	movi	r1, -70
+    c528:	0266 	add	r1, r1, r6
+    c52a:	3240 	ld	r1, 0(r1)
+    c52c:	06a1 	add	r3, r2, r1
+    c52e:	28c0 	addi	r4, r3, 0
+    c530:	54ba 	movi	r2, -70
+    c532:	04a6 	add	r2, r2, r6
+    c534:	4880 	st	0(r2), r4
+    c536:	35a3 	ld	r2, -58(r6)
+    c538:	50b8 	movi	r0, -72
+    c53a:	0026 	add	r0, r0, r6
+    c53c:	3000 	ld	r0, 0(r0)
+    c53e:	02a0 	add	r1, r2, r0
+    c540:	d641 	ldb	r3, 1(r1)
+    c542:	2ffa 	addi	r7, r7, -6
+    c544:	23c0 	addi	r1, r7, 0
+    c546:	35bf 	ld	r2, -2(r6)
+    c548:	4440 	st	0(r1), r2
+    c54a:	35bd 	ld	r2, -6(r6)
+    c54c:	4441 	st	2(r1), r2
+    c54e:	39be 	ld	r4, -4(r6)
+    c550:	e844 	stb	4(r1), r4
+    c552:	e645 	stb	5(r1), r3
+    c554:	522e 	movi	r1, 46
+    c556:	53c1 	movhi	r1, -63
+    c558:	aa44 	jal	r5, r1
+    c55a:	2fc6 	addi	r7, r7, 6
+    c55c:	33bf 	ld	r1, -2(r6)
+    c55e:	2241 	addi	r1, r1, 1
+    c560:	43bf 	st	-2(r6), r1
+    c562:	33bf 	ld	r1, -2(r6)
+    c564:	540b 	movi	r2, 11
+    c566:	124a 	cmple	r1, r1, r2
+    c568:	5aa4 	movi	r5, -92
+    c56a:	5bc2 	movhi	r5, -62
+    c56c:	a341 	jnz	r1, r5
+    }
+}
+    c56e:	31c3 	ld	r0, 6(r7)
+    c570:	35c2 	ld	r2, 4(r7)
+    c572:	37c1 	ld	r3, 2(r7)
+    c574:	39c0 	ld	r4, 0(r7)
+    c576:	2f80 	addi	r7, r6, 0
+    c578:	3dc0 	ld	r6, 0(r7)
+    c57a:	3bc1 	ld	r5, 2(r7)
+    c57c:	2fc4 	addi	r7, r7, 4
+    c57e:	a143 	jmp	r5
+
+0000c580 <main>:
+
+
+int main (void) {
+    c580:	2fe0 	addi	r7, r7, -32
+    c582:	4bcf 	st	30(r7), r5
+    c584:	4dce 	st	28(r7), r6
+    c586:	2ddc 	addi	r6, r7, 28
+    c588:	5ac2 	movi	r5, -62
+    c58a:	0fe5 	add	r7, r7, r5
+    c58c:	41c3 	st	6(r7), r0
+    c58e:	45c2 	st	4(r7), r2
+    c590:	47c1 	st	2(r7), r3
+    c592:	49c0 	st	0(r7), r4
+
+    unsigned int tics_anterior=0;
+    c594:	5200 	movi	r1, 0
+    c596:	43bd 	st	-6(r6), r1
+    int pause=0;
+    c598:	5200 	movi	r1, 0
+    c59a:	43be 	st	-4(r6), r1
+    
+    if (NUMERO_LETRAS<=LIMITE_LETRAS) {
+        
+        reset_corre_letras();
+    c59c:	524c 	movi	r1, 76
+    c59e:	53c2 	movhi	r1, -62
+    c5a0:	aa44 	jal	r5, r1
+
+        while (1) {
+            switch (tecla_pulsada)
+    c5a2:	52a2 	movi	r1, -94
+    c5a4:	5380 	movhi	r1, -128
+    c5a6:	3240 	ld	r1, 0(r1)
+    c5a8:	43b7 	st	-18(r6), r1
+    c5aa:	5252 	movi	r1, 82
+    c5ac:	31b7 	ld	r0, -18(r6)
+    c5ae:	1219 	cmpeq	r1, r0, r1
+    c5b0:	6315 	bnz	r1, 44
+    c5b2:	5252 	movi	r1, 82
+    c5b4:	35b7 	ld	r2, -18(r6)
+    c5b6:	12a9 	cmpleu	r1, r2, r1
+    c5b8:	6207 	bz	r1, 16
+    c5ba:	5250 	movi	r1, 80
+    c5bc:	37b7 	ld	r3, -18(r6)
+    c5be:	12d9 	cmpeq	r1, r3, r1
+    c5c0:	6316 	bnz	r1, 46
+    c5c2:	5a06 	movi	r5, 6
+    c5c4:	5bc6 	movhi	r5, -58
+    c5c6:	a143 	jmp	r5
+    c5c8:	5270 	movi	r1, 112
+    c5ca:	39b7 	ld	r4, -18(r6)
+    c5cc:	1319 	cmpeq	r1, r4, r1
+    c5ce:	630f 	bnz	r1, 32
+    c5d0:	5272 	movi	r1, 114
+    c5d2:	31b7 	ld	r0, -18(r6)
+    c5d4:	1219 	cmpeq	r1, r0, r1
+    c5d6:	6302 	bnz	r1, 6
+    c5d8:	5a00 	movi	r5, 0
+    c5da:	6a15 	bz	r5, 44
+            {
+            case 'r':    case 'R':
+                reset_corre_letras();
+    c5dc:	524c 	movi	r1, 76
+    c5de:	53c2 	movhi	r1, -62
+    c5e0:	aa44 	jal	r5, r1
+                tecla_pulsada=0;
+    c5e2:	54a2 	movi	r2, -94
+    c5e4:	5580 	movhi	r2, -128
+    c5e6:	5200 	movi	r1, 0
+    c5e8:	4280 	st	0(r2), r1
+                break;
+    c5ea:	5a00 	movi	r5, 0
+    c5ec:	6a0c 	bz	r5, 26
+
+            case 'p':    case 'P':
+                if (pause==0) pause=1; else pause=0;
+    c5ee:	33be 	ld	r1, -4(r6)
+    c5f0:	6304 	bnz	r1, 10
+    c5f2:	5201 	movi	r1, 1
+    c5f4:	43be 	st	-4(r6), r1
+    c5f6:	5a00 	movi	r5, 0
+    c5f8:	6a02 	bz	r5, 6
+    c5fa:	5200 	movi	r1, 0
+    c5fc:	43be 	st	-4(r6), r1
+                tecla_pulsada=0;
+    c5fe:	54a2 	movi	r2, -94
+    c600:	5580 	movhi	r2, -128
+    c602:	5200 	movi	r1, 0
+    c604:	4280 	st	0(r2), r1
+                break;
+
+            default:
+                break;
+            }
+
+            if (pause==0) {
+    c606:	33be 	ld	r1, -4(r6)
+    c608:	5aa2 	movi	r5, -94
+    c60a:	5bc5 	movhi	r5, -59
+    c60c:	a341 	jnz	r1, r5
+                // para DEBUG: mostramos los valores del timer por los leds verdes
+                __asm__ ( "out %0, %1" 
+    c60e:	52a0 	movi	r1, -96
+    c610:	5380 	movhi	r1, -128
+    c612:	3240 	ld	r1, 0(r1)
+    c614:	7305 	out	5, r1
+                        : /* sin salidas*/
+                        : "i" (5), "r" (tics_timer));
+                // fin DEBUG
+
+                if (tics_timer!=tics_anterior) {
+    c616:	52a0 	movi	r1, -96
+    c618:	5380 	movhi	r1, -128
+    c61a:	3440 	ld	r2, 0(r1)
+    c61c:	33bd 	ld	r1, -6(r6)
+    c61e:	1299 	cmpeq	r1, r2, r1
+    c620:	5aa2 	movi	r5, -94
+    c622:	5bc5 	movhi	r5, -59
+    c624:	a341 	jnz	r1, r5
+                    tics_anterior=tics_timer;
+    c626:	52a0 	movi	r1, -96
+    c628:	5380 	movhi	r1, -128
+    c62a:	3240 	ld	r1, 0(r1)
+    c62c:	43bd 	st	-6(r6), r1
+
+                    int fila;
+                    for (fila=0; fila<NUMERO_LETRAS; fila++) {
+    c62e:	5200 	movi	r1, 0
+    c630:	43bf 	st	-2(r6), r1
+    c632:	5a26 	movi	r5, 38
+    c634:	5bc9 	movhi	r5, -55
+    c636:	a143 	jmp	r5
+                        if (tics_timer%divisores[fila]==0) {
+    c638:	52a0 	movi	r1, -96
+    c63a:	5380 	movhi	r1, -128
+    c63c:	3240 	ld	r1, 0(r1)
+    c63e:	43b8 	st	-16(r6), r1
+    c640:	39bf 	ld	r4, -2(r6)
+    c642:	524e 	movi	r1, 78
+    c644:	5380 	movhi	r1, -128
+    c646:	43b6 	st	-20(r6), r1
+    c648:	520f 	movi	r1, 15
+    c64a:	0258 	not	r1, r1
+    c64c:	2241 	addi	r1, r1, 1
+    c64e:	0731 	sha	r3, r4, r1
+    c650:	2300 	addi	r1, r4, 0
+    c652:	24c0 	addi	r2, r3, 0
+    c654:	0661 	add	r3, r1, r1
+    c656:	10e1 	cmpltu	r0, r3, r1
+    c658:	08a2 	add	r4, r2, r2
+    c65a:	0224 	add	r1, r0, r4
+    c65c:	2840 	addi	r4, r1, 0
+    c65e:	35b6 	ld	r2, -20(r6)
+    c660:	02a3 	add	r1, r2, r3
+    c662:	3240 	ld	r1, 0(r1)
+    c664:	2440 	addi	r2, r1, 0
+    c666:	37b8 	ld	r3, -16(r6)
+    c668:	82ea 	divu	r1, r3, r2
+    c66a:	8242 	mul	r1, r1, r2
+    c66c:	35b8 	ld	r2, -16(r6)
+    c66e:	02a9 	sub	r1, r2, r1
+    c670:	5a20 	movi	r5, 32
+    c672:	5bc9 	movhi	r5, -55
+    c674:	a341 	jnz	r1, r5
+                            borrar_letra(fila,letra[fila].posicion);
+    c676:	35bf 	ld	r2, -2(r6)
+    c678:	58b0 	movi	r4, -80
+    c67a:	5980 	movhi	r4, -128
+    c67c:	49b5 	st	-22(r6), r4
+    c67e:	520f 	movi	r1, 15
+    c680:	0258 	not	r1, r1
+    c682:	2241 	addi	r1, r1, 1
+    c684:	02b1 	sha	r1, r2, r1
+    c686:	2680 	addi	r3, r2, 0
+    c688:	2840 	addi	r4, r1, 0
+    c68a:	520e 	movi	r1, 14
+    c68c:	0258 	not	r1, r1
+    c68e:	2241 	addi	r1, r1, 1
+    c690:	02f9 	shl	r1, r3, r1
+    c692:	43b4 	st	-24(r6), r1
+    c694:	5002 	movi	r0, 2
+    c696:	5202 	movi	r1, 2
+    c698:	43b3 	st	-26(r6), r1
+    c69a:	0530 	sha	r2, r4, r0
+    c69c:	31b4 	ld	r0, -24(r6)
+    c69e:	040a 	or	r2, r0, r2
+    c6a0:	31b3 	ld	r0, -26(r6)
+    c6a2:	02f0 	sha	r1, r3, r0
+    c6a4:	37b5 	ld	r3, -22(r6)
+    c6a6:	02e1 	add	r1, r3, r1
+    c6a8:	3640 	ld	r3, 0(r1)
+    c6aa:	2ffc 	addi	r7, r7, -4
+    c6ac:	25c0 	addi	r2, r7, 0
+    c6ae:	33bf 	ld	r1, -2(r6)
+    c6b0:	4280 	st	0(r2), r1
+    c6b2:	4681 	st	2(r2), r3
+    c6b4:	52ec 	movi	r1, -20
+    c6b6:	53c0 	movhi	r1, -64
+    c6b8:	aa44 	jal	r5, r1
+    c6ba:	2fc4 	addi	r7, r7, 4
+                            if (letra[fila].posicion<80)
+    c6bc:	35bf 	ld	r2, -2(r6)
+    c6be:	58b0 	movi	r4, -80
+    c6c0:	5980 	movhi	r4, -128
+    c6c2:	49b2 	st	-28(r6), r4
+    c6c4:	520f 	movi	r1, 15
+    c6c6:	0258 	not	r1, r1
+    c6c8:	2241 	addi	r1, r1, 1
+    c6ca:	02b1 	sha	r1, r2, r1
+    c6cc:	2680 	addi	r3, r2, 0
+    c6ce:	2840 	addi	r4, r1, 0
+    c6d0:	520e 	movi	r1, 14
+    c6d2:	0258 	not	r1, r1
+    c6d4:	2241 	addi	r1, r1, 1
+    c6d6:	02f9 	shl	r1, r3, r1
+    c6d8:	43b1 	st	-30(r6), r1
+    c6da:	5002 	movi	r0, 2
+    c6dc:	5202 	movi	r1, 2
+    c6de:	43b0 	st	-32(r6), r1
+    c6e0:	0530 	sha	r2, r4, r0
+    c6e2:	31b1 	ld	r0, -30(r6)
+    c6e4:	040a 	or	r2, r0, r2
+    c6e6:	31b0 	ld	r0, -32(r6)
+    c6e8:	02f0 	sha	r1, r3, r0
+    c6ea:	37b2 	ld	r3, -28(r6)
+    c6ec:	02e1 	add	r1, r3, r1
+    c6ee:	3440 	ld	r2, 0(r1)
+    c6f0:	524f 	movi	r1, 79
+    c6f2:	1289 	cmple	r1, r2, r1
+    c6f4:	5a74 	movi	r5, 116
+    c6f6:	5bc7 	movhi	r5, -57
+    c6f8:	a340 	jz	r1, r5
+                                letra[fila].posicion++;
+    c6fa:	39bf 	ld	r4, -2(r6)
+    c6fc:	49b9 	st	-14(r6), r4
+    c6fe:	50b0 	movi	r0, -80
+    c700:	5180 	movhi	r0, -128
+    c702:	41af 	st	-34(r6), r0
+    c704:	520f 	movi	r1, 15
+    c706:	0258 	not	r1, r1
+    c708:	2241 	addi	r1, r1, 1
+    c70a:	35b9 	ld	r2, -14(r6)
+    c70c:	02b1 	sha	r1, r2, r1
+    c70e:	31b9 	ld	r0, -14(r6)
+    c710:	2600 	addi	r3, r0, 0
+    c712:	2840 	addi	r4, r1, 0
+    c714:	520e 	movi	r1, 14
+    c716:	0258 	not	r1, r1
+    c718:	2241 	addi	r1, r1, 1
+    c71a:	02f9 	shl	r1, r3, r1
+    c71c:	43ae 	st	-36(r6), r1
+    c71e:	5002 	movi	r0, 2
+    c720:	5202 	movi	r1, 2
+    c722:	43ad 	st	-38(r6), r1
+    c724:	0530 	sha	r2, r4, r0
+    c726:	31ae 	ld	r0, -36(r6)
+    c728:	040a 	or	r2, r0, r2
+    c72a:	31ad 	ld	r0, -38(r6)
+    c72c:	02f0 	sha	r1, r3, r0
+    c72e:	37af 	ld	r3, -34(r6)
+    c730:	02e1 	add	r1, r3, r1
+    c732:	3240 	ld	r1, 0(r1)
+    c734:	2241 	addi	r1, r1, 1
+    c736:	43ba 	st	-12(r6), r1
+    c738:	58b0 	movi	r4, -80
+    c73a:	5980 	movhi	r4, -128
+    c73c:	49ac 	st	-40(r6), r4
+    c73e:	520f 	movi	r1, 15
+    c740:	0258 	not	r1, r1
+    c742:	2241 	addi	r1, r1, 1
+    c744:	31b9 	ld	r0, -14(r6)
+    c746:	0231 	sha	r1, r0, r1
+    c748:	35b9 	ld	r2, -14(r6)
+    c74a:	2680 	addi	r3, r2, 0
+    c74c:	2840 	addi	r4, r1, 0
+    c74e:	520e 	movi	r1, 14
+    c750:	0258 	not	r1, r1
+    c752:	2241 	addi	r1, r1, 1
+    c754:	02f9 	shl	r1, r3, r1
+    c756:	43ab 	st	-42(r6), r1
+    c758:	5002 	movi	r0, 2
+    c75a:	5202 	movi	r1, 2
+    c75c:	43aa 	st	-44(r6), r1
+    c75e:	0530 	sha	r2, r4, r0
+    c760:	31ab 	ld	r0, -42(r6)
+    c762:	040a 	or	r2, r0, r2
+    c764:	31aa 	ld	r0, -44(r6)
+    c766:	02f0 	sha	r1, r3, r0
+    c768:	37ac 	ld	r3, -40(r6)
+    c76a:	02e1 	add	r1, r3, r1
+    c76c:	39ba 	ld	r4, -12(r6)
+    c76e:	4840 	st	0(r1), r4
+    c770:	5a00 	movi	r5, 0
+    c772:	6a1b 	bz	r5, 56
+                            else
+                                letra[fila].posicion=0;
+    c774:	35bf 	ld	r2, -2(r6)
+    c776:	50b0 	movi	r0, -80
+    c778:	5180 	movhi	r0, -128
+    c77a:	41a9 	st	-46(r6), r0
+    c77c:	520f 	movi	r1, 15
+    c77e:	0258 	not	r1, r1
+    c780:	2241 	addi	r1, r1, 1
+    c782:	02b1 	sha	r1, r2, r1
+    c784:	2680 	addi	r3, r2, 0
+    c786:	2840 	addi	r4, r1, 0
+    c788:	520e 	movi	r1, 14
+    c78a:	0258 	not	r1, r1
+    c78c:	2241 	addi	r1, r1, 1
+    c78e:	02f9 	shl	r1, r3, r1
+    c790:	43a8 	st	-48(r6), r1
+    c792:	5002 	movi	r0, 2
+    c794:	5202 	movi	r1, 2
+    c796:	43a7 	st	-50(r6), r1
+    c798:	0530 	sha	r2, r4, r0
+    c79a:	31a8 	ld	r0, -48(r6)
+    c79c:	040a 	or	r2, r0, r2
+    c79e:	31a7 	ld	r0, -50(r6)
+    c7a0:	02f0 	sha	r1, r3, r0
+    c7a2:	37a9 	ld	r3, -46(r6)
+    c7a4:	04e1 	add	r2, r3, r1
+    c7a6:	5200 	movi	r1, 0
+    c7a8:	4280 	st	0(r2), r1
+
+                            mostrar_nueva_posicion(fila,letra[fila].posicion,letra[fila].caracter,letra[fila].color);
+    c7aa:	35bf 	ld	r2, -2(r6)
+    c7ac:	58b0 	movi	r4, -80
+    c7ae:	5980 	movhi	r4, -128
+    c7b0:	49a6 	st	-52(r6), r4
+    c7b2:	520f 	movi	r1, 15
+    c7b4:	0258 	not	r1, r1
+    c7b6:	2241 	addi	r1, r1, 1
+    c7b8:	02b1 	sha	r1, r2, r1
+    c7ba:	2680 	addi	r3, r2, 0
+    c7bc:	2840 	addi	r4, r1, 0
+    c7be:	520e 	movi	r1, 14
+    c7c0:	0258 	not	r1, r1
+    c7c2:	2241 	addi	r1, r1, 1
+    c7c4:	02f9 	shl	r1, r3, r1
+    c7c6:	43a5 	st	-54(r6), r1
+    c7c8:	5002 	movi	r0, 2
+    c7ca:	5202 	movi	r1, 2
+    c7cc:	43a4 	st	-56(r6), r1
+    c7ce:	0530 	sha	r2, r4, r0
+    c7d0:	31a5 	ld	r0, -54(r6)
+    c7d2:	040a 	or	r2, r0, r2
+    c7d4:	31a4 	ld	r0, -56(r6)
+    c7d6:	02f0 	sha	r1, r3, r0
+    c7d8:	37a6 	ld	r3, -52(r6)
+    c7da:	02e1 	add	r1, r3, r1
+    c7dc:	3240 	ld	r1, 0(r1)
+    c7de:	43bb 	st	-10(r6), r1
+    c7e0:	39bf 	ld	r4, -2(r6)
+    c7e2:	50b0 	movi	r0, -80
+    c7e4:	5180 	movhi	r0, -128
+    c7e6:	41a3 	st	-58(r6), r0
+    c7e8:	520f 	movi	r1, 15
+    c7ea:	0258 	not	r1, r1
+    c7ec:	2241 	addi	r1, r1, 1
+    c7ee:	0731 	sha	r3, r4, r1
+    c7f0:	2300 	addi	r1, r4, 0
+    c7f2:	24c0 	addi	r2, r3, 0
+    c7f4:	560e 	movi	r3, 14
+    c7f6:	06d8 	not	r3, r3
+    c7f8:	26c1 	addi	r3, r3, 1
+    c7fa:	067b 	shl	r3, r1, r3
+    c7fc:	47a2 	st	-60(r6), r3
+    c7fe:	5002 	movi	r0, 2
+    c800:	5602 	movi	r3, 2
+    c802:	47a1 	st	-62(r6), r3
+    c804:	08b0 	sha	r4, r2, r0
+    c806:	31a2 	ld	r0, -60(r6)
+    c808:	080c 	or	r4, r0, r4
+    c80a:	31a1 	ld	r0, -62(r6)
+    c80c:	0670 	sha	r3, r1, r0
+    c80e:	5402 	movi	r2, 2
+    c810:	52be 	movi	r1, -66
+    c812:	0266 	add	r1, r1, r6
+    c814:	4440 	st	0(r1), r2
+    c816:	5000 	movi	r0, 0
+    c818:	41a0 	st	-64(r6), r0
+    c81a:	52be 	movi	r1, -66
+    c81c:	0266 	add	r1, r1, r6
+    c81e:	3240 	ld	r1, 0(r1)
+    c820:	04e1 	add	r2, r3, r1
+    c822:	52ae 	movi	r1, -82
+    c824:	0266 	add	r1, r1, r6
+    c826:	4440 	st	0(r1), r2
+    c828:	54ae 	movi	r2, -82
+    c82a:	04a6 	add	r2, r2, r6
+    c82c:	3480 	ld	r2, 0(r2)
+    c82e:	10a3 	cmpltu	r0, r2, r3
+    c830:	54b2 	movi	r2, -78
+    c832:	04a6 	add	r2, r2, r6
+    c834:	4080 	st	0(r2), r0
+    c836:	31a0 	ld	r0, -64(r6)
+    c838:	0320 	add	r1, r4, r0
+    c83a:	50b0 	movi	r0, -80
+    c83c:	0026 	add	r0, r0, r6
+    c83e:	4200 	st	0(r0), r1
+    c840:	52b2 	movi	r1, -78
+    c842:	0266 	add	r1, r1, r6
+    c844:	3440 	ld	r2, 0(r1)
+    c846:	52b0 	movi	r1, -80
+    c848:	0266 	add	r1, r1, r6
+    c84a:	3240 	ld	r1, 0(r1)
+    c84c:	06a1 	add	r3, r2, r1
+    c84e:	28c0 	addi	r4, r3, 0
+    c850:	54b0 	movi	r2, -80
+    c852:	04a6 	add	r2, r2, r6
+    c854:	4880 	st	0(r2), r4
+    c856:	35a3 	ld	r2, -58(r6)
+    c858:	50ae 	movi	r0, -82
+    c85a:	0026 	add	r0, r0, r6
+    c85c:	3000 	ld	r0, 0(r0)
+    c85e:	02a0 	add	r1, r2, r0
+    c860:	d240 	ldb	r1, 0(r1)
+    c862:	43bc 	st	-8(r6), r1
+    c864:	39bf 	ld	r4, -2(r6)
+    c866:	54b0 	movi	r2, -80
+    c868:	5580 	movhi	r2, -128
+    c86a:	52bc 	movi	r1, -68
+    c86c:	0266 	add	r1, r1, r6
+    c86e:	4440 	st	0(r1), r2
+    c870:	520f 	movi	r1, 15
+    c872:	0258 	not	r1, r1
+    c874:	2241 	addi	r1, r1, 1
+    c876:	0731 	sha	r3, r4, r1
+    c878:	2300 	addi	r1, r4, 0
+    c87a:	24c0 	addi	r2, r3, 0
+    c87c:	560e 	movi	r3, 14
+    c87e:	06d8 	not	r3, r3
+    c880:	26c1 	addi	r3, r3, 1
+    c882:	007b 	shl	r0, r1, r3
+    c884:	58ba 	movi	r4, -70
+    c886:	0926 	add	r4, r4, r6
+    c888:	4100 	st	0(r4), r0
+    c88a:	5002 	movi	r0, 2
+    c88c:	5802 	movi	r4, 2
+    c88e:	56b8 	movi	r3, -72
+    c890:	06e6 	add	r3, r3, r6
+    c892:	48c0 	st	0(r3), r4
+    c894:	08b0 	sha	r4, r2, r0
+    c896:	50ba 	movi	r0, -70
+    c898:	0026 	add	r0, r0, r6
+    c89a:	3000 	ld	r0, 0(r0)
+    c89c:	080c 	or	r4, r0, r4
+    c89e:	50b8 	movi	r0, -72
+    c8a0:	0026 	add	r0, r0, r6
+    c8a2:	3000 	ld	r0, 0(r0)
+    c8a4:	0670 	sha	r3, r1, r0
+    c8a6:	5402 	movi	r2, 2
+    c8a8:	52b4 	movi	r1, -76
+    c8aa:	0266 	add	r1, r1, r6
+    c8ac:	4440 	st	0(r1), r2
+    c8ae:	5200 	movi	r1, 0
+    c8b0:	50b6 	movi	r0, -74
+    c8b2:	0026 	add	r0, r0, r6
+    c8b4:	4200 	st	0(r0), r1
+    c8b6:	54b4 	movi	r2, -76
+    c8b8:	04a6 	add	r2, r2, r6
+    c8ba:	3480 	ld	r2, 0(r2)
+    c8bc:	00e2 	add	r0, r3, r2
+    c8be:	54ae 	movi	r2, -82
+    c8c0:	04a6 	add	r2, r2, r6
+    c8c2:	4080 	st	0(r2), r0
+    c8c4:	50ae 	movi	r0, -82
+    c8c6:	0026 	add	r0, r0, r6
+    c8c8:	3000 	ld	r0, 0(r0)
+    c8ca:	1223 	cmpltu	r1, r0, r3
+    c8cc:	50b2 	movi	r0, -78
+    c8ce:	0026 	add	r0, r0, r6
+    c8d0:	4200 	st	0(r0), r1
+    c8d2:	52b6 	movi	r1, -74
+    c8d4:	0266 	add	r1, r1, r6
+    c8d6:	3240 	ld	r1, 0(r1)
+    c8d8:	0521 	add	r2, r4, r1
+    c8da:	52b0 	movi	r1, -80
+    c8dc:	0266 	add	r1, r1, r6
+    c8de:	4440 	st	0(r1), r2
+    c8e0:	54b2 	movi	r2, -78
+    c8e2:	04a6 	add	r2, r2, r6
+    c8e4:	3880 	ld	r4, 0(r2)
+    c8e6:	54b0 	movi	r2, -80
+    c8e8:	04a6 	add	r2, r2, r6
+    c8ea:	3480 	ld	r2, 0(r2)
+    c8ec:	0722 	add	r3, r4, r2
+    c8ee:	20c0 	addi	r0, r3, 0
+    c8f0:	58b0 	movi	r4, -80
+    c8f2:	0926 	add	r4, r4, r6
+    c8f4:	4100 	st	0(r4), r0
+    c8f6:	54bc 	movi	r2, -68
+    c8f8:	04a6 	add	r2, r2, r6
+    c8fa:	3680 	ld	r3, 0(r2)
+    c8fc:	54ae 	movi	r2, -82
+    c8fe:	04a6 	add	r2, r2, r6
+    c900:	3480 	ld	r2, 0(r2)
+    c902:	02e2 	add	r1, r3, r2
+    c904:	d641 	ldb	r3, 1(r1)
+    c906:	2ffa 	addi	r7, r7, -6
+    c908:	23c0 	addi	r1, r7, 0
+    c90a:	35bf 	ld	r2, -2(r6)
+    c90c:	4440 	st	0(r1), r2
+    c90e:	39bb 	ld	r4, -10(r6)
+    c910:	4841 	st	2(r1), r4
+    c912:	31bc 	ld	r0, -8(r6)
+    c914:	e044 	stb	4(r1), r0
+    c916:	e645 	stb	5(r1), r3
+    c918:	522e 	movi	r1, 46
+    c91a:	53c1 	movhi	r1, -63
+    c91c:	aa44 	jal	r5, r1
+    c91e:	2fc6 	addi	r7, r7, 6
+    c920:	33bf 	ld	r1, -2(r6)
+    c922:	2241 	addi	r1, r1, 1
+    c924:	43bf 	st	-2(r6), r1
+    c926:	33bf 	ld	r1, -2(r6)
+    c928:	540b 	movi	r2, 11
+    c92a:	124a 	cmple	r1, r1, r2
+    c92c:	5a38 	movi	r5, 56
+    c92e:	5bc6 	movhi	r5, -58
+    c930:	a341 	jnz	r1, r5
+                        }
+                    }
+                }
+            }
+        }
+    c932:	5aa2 	movi	r5, -94
+    c934:	5bc5 	movhi	r5, -59
+    c936:	a143 	jmp	r5
+
+temp_corre_letras.o:     formato del fichero elf32-sisa
+temp_corre_letras.o
+arquitectura: sisa:3, opciones 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+dirección de inicio 0x00000000
+
+Encabezado del Programa:
+    LOAD off    0x00000000 vaddr 0x00007f6c paddr 0x00007f6c align 2**0
+         filesz 0x00000128 memsz 0x00000128 flags rw-
+    LOAD off    0x00000120 vaddr 0x000080a0 paddr 0x000080a0 align 2**0
+         filesz 0x00000000 memsz 0x00000040 flags rw-
+    LOAD off    0x00000128 vaddr 0x0000c000 paddr 0x0000c000 align 2**0
+         filesz 0x00000938 memsz 0x00000938 flags r-x
+
+Secciones:
+Ind Nombre        Tamaño    VMA       LMA       Desp fich Alin  Opciones
+  0 .sistema      00000938  0000c000  0000c000  00000128  2**1  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .sysdata      00000094  00008000  00008000  00000094  2**1  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000040  000080a0  000080a0  00000128  2**4  ALLOC
+  3 .stab         000007bc  000080e0  000080e0  00000a60  2**2  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      000005a8  0000889c  0000889c  0000121c  2**0  CONTENTS, READONLY, DEBUGGING
+SYMBOL TABLE:
+00008000 l    d  .sysdata	00000000 .sysdata
+00008000 l       .sysdata	00000000 interrupts_vector
+00008008 l       .sysdata	00000000 exceptions_vector
+00008024 l       .sysdata	00000000 call_sys_vector
+00008068 g     O .sysdata	0000002b mensaje
+00008034 g     O .sysdata	0000000d letras
+00008041 g     O .sysdata	0000000d colores
+0000804e g     O .sysdata	0000001a divisores
+
+
+Desensamblado de la sección .sysdata:
+
+00008000 <interrupts_vector>:
+    8000:	c0a2 	stf	-60(r2), f0
+    8002:	c018 	stf	48(r0), f0
+    8004:	c018 	stf	48(r0), f0
+    8006:	c0b0 	stf	-32(r2), f0
+
+00008008 <exceptions_vector>:
+    8008:	c01a 	stf	52(r0), f0
+    800a:	c01a 	stf	52(r0), f0
+    800c:	c01c 	stf	56(r0), f0
+    800e:	c01c 	stf	56(r0), f0
+    8010:	c01a 	stf	52(r0), f0
+    8012:	c01a 	stf	52(r0), f0
+    8014:	c01e 	stf	60(r0), f0
+    8016:	c01e 	stf	60(r0), f0
+    8018:	c01e 	stf	60(r0), f0
+    801a:	c01e 	stf	60(r0), f0
+    801c:	c01a 	stf	52(r0), f0
+    801e:	c01a 	stf	52(r0), f0
+    8020:	c01a 	stf	52(r0), f0
+    8022:	c01a 	stf	52(r0), f0
+
+00008024 <call_sys_vector>:
+    8024:	c01c 	stf	56(r0), f0
+    8026:	c01c 	stf	56(r0), f0
+    8028:	c01c 	stf	56(r0), f0
+    802a:	c01c 	stf	56(r0), f0
+    802c:	c01c 	stf	56(r0), f0
+    802e:	c01c 	stf	56(r0), f0
+    8030:	c01c 	stf	56(r0), f0
+    8032:	c01c 	stf	56(r0), f0
+
+00008034 <letras>:
+    8034:	4241 4443 4645 4847 4a49 4c4b 3f4d               ABCDEFGHIJKLM
+
+00008041 <colores>:
+    8041:	033f 300c 3c15 2a0f 3f2a 211a 012b               ?..0.<.**?.!+
+
+0000804e <divisores>:
+    804e:	0001 0002 0003 0004 0005 0006 0007 0008     ................
+    805e:	0009 000a 000b 000c 000d                    ..........
+
+00008068 <mensaje>:
+    8068:	7570 736c 2061 5227 2027 6170 6172 7220     pulsa 'R' para r
+    8078:	6965 696e 6963 7261 6f20 2720 2750 7020     einiciar o 'P' p
+    8088:	7261 2061 6170 7375 2e61 0000               ara pausa...
