@@ -80,10 +80,11 @@ begin
 	
 	vga_byte_m 	<= byte_m;
 	
-	ilegal_access <=	'1' WHEN (mode = '0' AND addr >= SYST_START_ADDRESS AND addr <= SYST_END_ADDRESS)	ELSE	
+	ilegal_access <=	'0' WHEN (addr >= VGA_START_ADDRESS AND addr <= VGA_END_ADDRESS) 							ELSE
+							'1' WHEN (mode = '0' AND addr >= SYST_START_ADDRESS AND addr <= SYST_END_ADDRESS)	ELSE	
 							'0';
 	
-	WR_bridge <= 	we WHEN (addr < VGA_START_ADDRESS AND ilegal_access = '0')	ELSE
+	WR_bridge <= 	we WHEN ((addr < VGA_START_ADDRESS OR addr > VGA_END_ADDRESS) AND ilegal_access = '0')	ELSE
 						'0';
 	
 	ilegal_acc <= ilegal_access;

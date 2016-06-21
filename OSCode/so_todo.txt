@@ -1,0 +1,29 @@
+Rangs de memoria
+
+	- Usuari 1: 0x0000 - 0x3FFF
+	- Usuari 2: 0x4000 - 0x7FFF
+	
+	- Dades sistema: 0x8000 - 0x8FFF
+	- VGA: 0xA000 - 0xBFFF
+	- Init sistema: 0xC000 - 0xCFFF
+	- RSG + Canvi de context: 0xD000 - 0xDFFF
+	- Pila de sistema: 0xF000 - 0xFFFF
+
+	
+ToDo:
+
+ - Canvi de context
+ - RSG:
+	- RSIs
+		- switch(?)
+		- keys(?)
+		- timer(implementació del quantum i crida a canvi de context quan faci falta)
+		- keyboard(?)
+	- RSEs
+		- fer halt
+		
+	- CALLS:
+		- (?)
+		
+		
+	
