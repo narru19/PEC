@@ -1,7 +1,7 @@
 ; entry.s de zeos para SISA por Zeus Gómez Marmolejo
 
  movi  r7, 0x00 ; Pila de sist: decreix en
- movhi r7, 0x75 ;  RAM: 0x81fe, 0x81fc, ...
+ movhi r7, 0x35 ;  RAM: 0x81fe, 0x81fc, ...
  ;wrs   s6, r7   ; a s6: la pila de sistema
 
  ; El retorn de la rutina principal

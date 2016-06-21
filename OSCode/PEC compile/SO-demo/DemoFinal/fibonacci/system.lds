@@ -7,7 +7,7 @@ OUTPUT_ARCH(sisa)
 SECTIONS
 {
   /* Ens situem a la part de flash */
-  . = 0x4000 ;
+  . = 0x0000 ;
 
   /* text space */
   .sistema :
@@ -27,7 +27,7 @@ SECTIONS
   __user_end = __user_start + SIZEOF(.user);
   
    /* Ens situem en la part de sistema */
-  . = 0x6000 ;
+  . = 0x2000 ;
 
   .sysdata : {  entrada.o(.data) fibonacci.o(.data)  }
 }
