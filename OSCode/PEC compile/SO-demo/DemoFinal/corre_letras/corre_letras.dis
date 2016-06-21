@@ -39,7 +39,7 @@ Disassembly of section .sistema:
 
 00004000 <__entry_point>:
     4000:	5e00 	movi	r7, 0
-    4002:	5f7a 	movhi	r7, 122
+    4002:	5f70 	movhi	r7, 112
     4004:	5a0e 	movi	r5, 14
     4006:	5b40 	movhi	r5, 64
     4008:	5cdc 	movi	r6, -36

@@ -1,7 +1,7 @@
 ; Incluimos las macros necesarias
 .include "macros.s"
 
-.set PILA, 0x7A00                ; una posicion de memoria de una zona no ocupada para usarse como PILA (ojo con la inicializacion del TLB)
+.set PILA, 0x7000                ; una posicion de memoria de una zona no ocupada para usarse como PILA (ojo con la inicializacion del TLB)
 
 ; seccion de datos
 .data
