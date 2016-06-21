@@ -93,8 +93,13 @@ __int:
 	  movi R2, 0x0
 	  cmpeq R2, R2, R1
 	  bnz R2, RSI__interrup_timer
-	  bz R2, RSI__interrup_keyboard
-
+	  movi R2, 0x03
+	  cmpeq R2, R2, R1
+	  bnz R2, RSI__interrup_keyboard
+	  
+	  $MOVEI R6, RSG_restaurar
+      jmp    r6
+	  
 __exc:
 
 	  HALT		
@@ -114,7 +119,7 @@ RSI__interrup_timer:
 		jmp R3
 		
 		$MOVEI R6, RSG_restaurar
-        jmp    r6         ; R6 contiene (ya que no lo hemos modificado) la direccion de retorno para gacer el fin de la RSG (fin del servicio de interrupcion)
+        jmp    r6         ; R6 contiene (ya que no lo hemos modificado) la direccion de retorno para hacer el fin de la RSG (fin del servicio de interrupcion)
 
 
 
@@ -126,7 +131,7 @@ RSI__interrup_keyboard:
         $MOVEI r4, 0x6062   ;carga la direccion de memoria donde dejaremos el resultado de la tecla pulsada
         st     0(r4), r3           ;actualiza la variable con la nueva tecla pulsada
 		$MOVEI R6, RSG_restaurar
-        jmp    r6         ; R6 contine (ya que no lo hemos modificado) la direccion de retorno para gacer el fin de la RSG (fin del servicio de interrupcion)
+        jmp    r6         ; R6 contiene (ya que no lo hemos modificado) la direccion de retorno para hacer el fin de la RSG (fin del servicio de interrupcion)
 
 
 RSG_restaurar:
